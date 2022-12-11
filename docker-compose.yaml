@@ -1,0 +1,19 @@
+version: '3.9'
+
+services:
+  db:
+    image: influxdb:2.4
+    ports:
+      - '8086:8086' # TODO might not expose port in non-dev builds
+  api:
+    build: ./src/api-temp
+    ports:
+      - '8081:8081' # TODO might not expose port in non-dev builds
+    command: npm run start
+  web:
+    build: ./src/web-temp
+    ports:
+      - '3000:8080'
+    command: npm run start
+    environment:
+      - API_URL=http://api:8081
