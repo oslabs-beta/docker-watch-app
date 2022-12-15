@@ -12,7 +12,7 @@ const dbFunc = (containerStats) => {
   // Create a write client from the getWriteApi method. Provide your `org` and `bucket`
   const client = new InfluxDB({ url: 'http://localhost:8086', token });
 
-  const writeApi = client.getWriteApi(org, bucket);
+  const writeApi = client.getWriteApi(org, bucket, 's');
 
   // Create a point and write it to the buffer
   writeApi.useDefaultTags({ container_id: 'container_id', container_name: 'container_name' });
