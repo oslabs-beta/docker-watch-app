@@ -42,14 +42,14 @@ const getContainerIDsAndWriteToDB = () => {
           method: 'GET',
         };
         // create a new client to get stats
-        const clientStats = http.request(clientStatsOptions, (res2) => {
+        const clientStats = http.request(clientStatsOptions, (resStats) => {
           let statsBody = [];
           // collect the data
-          res2.on('data', (chunk) => {
+          resStats.on('data', (chunk) => {
             statsBody.push(chunk);
           });
           // after collection, parse the buffer into a js object
-          res2.on('end', () => {
+          resStats.on('end', () => {
             statsBody = JSON.parse(Buffer.concat(statsBody));
 
             // add stats to the db

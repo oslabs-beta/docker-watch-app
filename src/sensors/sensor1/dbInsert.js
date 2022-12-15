@@ -1,12 +1,14 @@
+require('dotenv').config({ path: '../../../.env' });
+
 /** @module write
  * Writes a data point to InfluxDB using the Javascript client library with Node.js. */
 const { InfluxDB } = require('@influxdata/influxdb-client');
 const { Point } = require('@influxdata/influxdb-client');
 
 /* Environment variables * */
-const token = 'dev-token';
-const org = 'dev-org';
-const bucket = 'dev-bucket';
+const token = process.env.DB_INFLUXDB_INIT_ADMIN_TOKEN;
+const org = process.env.DB_INFLUXDB_INIT_ORG;
+const bucket = process.env.DB_INFLUXDB_INIT_BUCKET;
 
 const dbFunc = (containerStats) => {
   // Create a write client from the getWriteApi method. Provide your `org` and `bucket`
