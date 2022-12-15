@@ -14,7 +14,7 @@ services:
       - DOCKER_INFLUXDB_INIT_RETENTION=${DB_INFLUXDB_INIT_RETENTION}
       - DOCKER_INFLUXDB_INIT_ADMIN_TOKEN=${DB_INFLUXDB_INIT_ADMIN_TOKEN}
   api:
-    build: ./src/api-temp
+    build: ./src/api
     ports:
       - '8081:8081' # TODO might not expose port in non-dev builds
     command: npm run start
