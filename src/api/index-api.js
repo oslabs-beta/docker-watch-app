@@ -12,7 +12,11 @@ const HOST = '0.0.0.0';
 const app = express();
 app.use(cors());
 
-app.get('/', controller.getStatsFromDB, (req, res) => {
+app.get('/', (req, res) => {
+  res.sendStatus(200);
+});
+
+app.get('/api', controller.getStatsFromDB, (req, res) => {
   res.status(200).json(res.locals.data);
 });
 

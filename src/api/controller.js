@@ -1,7 +1,7 @@
 const { InfluxDB } = require('@influxdata/influxdb-client');
 require('dotenv').config({ path: '../../.env' });
 
-const DB_URL = 'http://localhost:8086/';
+const DB_URL = process.env.DB_URL || 'http://127.0.0.1:8086';
 const DB_API_TOKEN = process.env.DB_INFLUXDB_INIT_ADMIN_TOKEN;
 const DB_ORG = process.env.DB_INFLUXDB_INIT_ORG;
 const DB_BUCKET = process.env.DB_INFLUXDB_INIT_BUCKET;
@@ -9,6 +9,9 @@ const DB_BUCKET = process.env.DB_INFLUXDB_INIT_BUCKET;
 const controller = {};
 // eslint-disable-next-line no-unused-expressions
 controller.getStatsFromDB = (req, res, next) => {
+  console.log('hiiiiiiii');
+  console.log(DB_URL);
+
   // connect to the influx db using url and token
   const influxDB = new InfluxDB({ url: DB_URL, token: DB_API_TOKEN });
 
