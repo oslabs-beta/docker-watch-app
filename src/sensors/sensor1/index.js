@@ -9,6 +9,9 @@ const clientOptions = {
 // declare array to hold container ids
 const containerIds = [];
 
+// declare an array to store the stats
+const containerStats = [];
+
 const client = http.request(clientOptions, (res) => {
   let body = [];
 
@@ -44,7 +47,14 @@ const client = http.request(clientOptions, (res) => {
         // after collection, parse the buffer into a js object
         res2.on('end', () => {
           body2 = JSON.parse(Buffer.concat(body2));
-          console.log(body2);
+          // console.log('_____this is body2', body2);
+
+          // store id, name, cpu_stats.cpu_usage.total_usage, memory_stats.usage for every container
+          // add these later network: body2.networks, disk: body2.blkio_stats
+          containerStats.push({
+            id: body2.id, name: body2.name, cpu: body2.cpu_stats.cpu_usage.total_usage, memory: body2.memory_stats.usage,
+          });
+          console.log('+++++++++ this is containerStats in index file', containerStats);
         });
 
         // TODO: add stats to the db
@@ -64,3 +74,5 @@ client.on('error', (err) => {
 });
 
 client.end();
+
+module.exports = containerStats;

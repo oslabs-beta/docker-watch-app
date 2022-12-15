@@ -13,5 +13,8 @@
     "eslint": "^8.29.0",
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-plugin-import": "^2.26.0"
+  },
+  "dependencies": {
+    "@influxdata/influxdb-client": "^1.33.0"
   }
 }
