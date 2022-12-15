@@ -1,4 +1,5 @@
 const http = require('node:http');
+const dbFunc = require('./dbInsert');
 
 const clientOptions = {
   socketPath: '/var/run/docker.sock',
@@ -8,9 +9,6 @@ const clientOptions = {
 
 // declare array to hold container ids
 const containerIds = [];
-
-// declare an array to store the stats
-const containerStats = [];
 
 const client = http.request(clientOptions, (res) => {
   let body = [];
@@ -25,7 +23,7 @@ const client = http.request(clientOptions, (res) => {
     // eslint-disable-next-line no-restricted-syntax
     for (const container of body) {
       containerIds.push(container.Id);
-      console.log(container.Id);
+      // console.log(container.Id);
     }
 
     // iterate through container ids
@@ -39,25 +37,24 @@ const client = http.request(clientOptions, (res) => {
       };
       // create a new client to get stats
       const clientStats = http.request(clientStatsOptions, (res2) => {
-        let body2 = [];
+        let statsBody = [];
         // collect the data
         res2.on('data', (chunk) => {
-          body2.push(chunk);
+          statsBody.push(chunk);
         });
         // after collection, parse the buffer into a js object
         res2.on('end', () => {
-          body2 = JSON.parse(Buffer.concat(body2));
-          // console.log('_____this is body2', body2);
+          statsBody = JSON.parse(Buffer.concat(statsBody));
 
-          // store id, name, cpu_stats.cpu_usage.total_usage, memory_stats.usage for every container
-          // add these later network: body2.networks, disk: body2.blkio_stats
-          containerStats.push({
-            id: body2.id, name: body2.name, cpu: body2.cpu_stats.cpu_usage.total_usage, memory: body2.memory_stats.usage,
+          // add stats to the db
+          // TODO add these later network: statsBody.networks, disk: statsBody.blkio_stats
+          dbFunc({
+            cpu: statsBody.cpu_stats.cpu_usage.total_usage,
+            id: statsBody.id,
+            memory: statsBody.memory_stats.usage,
+            name: statsBody.name,
           });
-          console.log('+++++++++ this is containerStats in index file', containerStats);
         });
-
-        // TODO: add stats to the db
       });
 
       clientStats.on('error', (err) => {
@@ -74,5 +71,3 @@ client.on('error', (err) => {
 });
 
 client.end();
-
-module.exports = containerStats;
