@@ -1,0 +1,27 @@
+
+.App {
+  display: grid;
+  grid-template-columns: 0.4fr 1.6fr;
+  grid-template-rows: 0.2fr 1.8fr;
+  gap: 0px 0px;
+  grid-template-areas:
+    "Header Header"
+    "Sidebar Main";
+  text-align: center;
+  min-height: 100vh;
+}
+
+.Header { grid-area: Header; }
+
+.Main { grid-area: Main; }
+
+.Sidebar { grid-area: Sidebar; }
+
+.whale {
+  display: none;
+}
+
+.Container:hover .whale{
+  display: contents;
+}
+
