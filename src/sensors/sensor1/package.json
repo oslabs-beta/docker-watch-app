@@ -15,6 +15,7 @@
     "eslint-plugin-import": "^2.26.0"
   },
   "dependencies": {
-    "@influxdata/influxdb-client": "^1.33.0"
+    "@influxdata/influxdb-client": "^1.33.0",
+    "dotenv": "^16.0.3"
   }
 }

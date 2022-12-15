@@ -1,3 +1,8 @@
+require('dotenv').config({ path: '../../../.env' });
+
+const lookupFrequency = process.env.SENSORS_SENSOR1_LOOKUP_FREQUENCY < 5000
+  ? 5000 : process.env.SENSORS_SENSOR1_LOOKUP_FREQUENCY;
+
 const http = require('node:http');
 const dbFunc = require('./dbInsert');
 
@@ -75,4 +80,4 @@ const getContainerIDsAndWriteToDB = () => {
 };
 
 // invoke this function every 10 sec to store stats in the DB
-setInterval(getContainerIDsAndWriteToDB, 10000);
+setInterval(getContainerIDsAndWriteToDB, lookupFrequency);
