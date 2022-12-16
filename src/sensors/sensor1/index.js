@@ -53,12 +53,19 @@ const getContainerIDsAndWriteToDB = () => {
             statsBody = JSON.parse(Buffer.concat(statsBody));
 
             // add stats to the db
-            // TODO add these later network: statsBody.networks, disk: statsBody.blkio_stats
             dbFunc({
               cpu: statsBody.cpu_stats.cpu_usage.total_usage,
+              disk_read: statsBody.blkio_stats.io_service_bytes_recursive[0].value,
+              disk_write: statsBody.blkio_stats.io_service_bytes_recursive[1].value,
               id: statsBody.id,
               memory: statsBody.memory_stats.usage,
               name: statsBody.name,
+              rx_bytes: statsBody.networks.eth0.rx_bytes,
+              rx_errors: statsBody.networks.eth0.rx_errors,
+              rx_packets: statsBody.networks.eth0.rx_packets,
+              tx_bytes: statsBody.networks.eth0.tx_bytes,
+              tx_errors: statsBody.networks.eth0.tx_errors,
+              tx_packets: statsBody.networks.eth0.tx_packets,
             });
           });
         });
