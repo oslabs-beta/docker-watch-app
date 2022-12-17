@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import styles from './style.scss'
+import styles from './app.css'
 import Container from './Container.jsx'
 
 function App() {
@@ -28,6 +28,7 @@ function App() {
   <body className='grid-container'>
     <header className='header'>
       <h1>DockerWatch</h1>
+      <button className="btn">Hello daisyUI</button>
     </header>
     <div className='sidebar'>{containers}</div>
     <main className='main'></main>

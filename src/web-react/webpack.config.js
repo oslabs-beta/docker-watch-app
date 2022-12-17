@@ -19,9 +19,12 @@ module.exports = {
         }
       },
       {
-        test: /\.s?css/,
+        test: /\.css$/,
         exclude: /node_modules/,
-        use: ['style-loader', 'css-loader', 'sass-loader']
+        use: ['style-loader',
+             { loader: 'css-loader', options: {
+              importLoaders: 1 } },
+              'postcss-loader']
       }
     ]
   },
