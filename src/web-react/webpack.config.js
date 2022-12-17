@@ -22,9 +22,12 @@ module.exports = {
         test: /\.css$/,
         exclude: /node_modules/,
         use: ['style-loader',
-             { loader: 'css-loader', options: {
-              importLoaders: 1 } },
-              'postcss-loader']
+          {
+            loader: 'css-loader', options: {
+              importLoaders: 1
+            }
+          },
+          'postcss-loader']
       }
     ]
   },
@@ -35,7 +38,7 @@ module.exports = {
       publicPath: '/dist',
     },
     proxy: {
-      '/': 'http://localhost:3000',
+      // '/': 'http://localhost:3000',
     },
   },
 

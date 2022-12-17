@@ -15,7 +15,7 @@ function App() {
     { cpu: 2016, time: 28 },
   ];
 
-  const [containerList, updateContainerList] = useState(() => [{ id: 1 }, { id: 2 }, { id: 3 }, { id: 4 }]);
+  const [containerList, updateContainerList] = useState([]);
   const [userData, setUserData] = useState({
     labels: datas.map((data) => {
       return data.cpu;
@@ -28,11 +28,19 @@ function App() {
 
   //request to server to update the container list on component mount..and after every update???
   useEffect(() => {
-    fetch('/api/container')
+    getContainers()
+  });
+
+
+  const getContainers = () => {
+    fetch('http://localhost:8081/api/containers')
       .then(response => response.json())
-      .then(data => updateContainerList(() => data))
-      .catch(err => console.log('error'))
-  }, []);
+      .then(data => {
+        console.log("Data: ", data)
+        updateContainerList(data)
+      })
+      .catch(err => console.log(err))
+  }
   // const getContainers = () 
   const containers = [];
   //loops through the container list and pushes new container div into containers array
@@ -40,7 +48,7 @@ function App() {
     containers.push(<Container
       key={`container-${i}`}
       id={containerList[i].id}
-      text={`container-${containerList[i].id}`}
+      text={`container-${containerList[i].name}`}
     />)
   }
   return (
