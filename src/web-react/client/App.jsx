@@ -65,6 +65,8 @@ function App() {
       text={`container-${containerList[i].name}`}
     />)
   }
+
+  console.log(containers)
   return (
     <div className="App bg-slate-800">
       <header className="Header bg-sky-600 font-mono inline-block align-middle text-5xl pl-4 text-white">
