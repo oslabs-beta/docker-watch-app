@@ -33,7 +33,7 @@ function App() {
       .then(data => updateContainerList(() => data))
       .catch(err => console.log('error'))
   }, []);
-
+  // const getContainers = () 
   const containers = [];
   //loops through the container list and pushes new container div into containers array
   for (let i = 0; i < containerList.length; i++) {
@@ -67,10 +67,6 @@ function App() {
         <div>
           <BarChart chartData={userData} />
         </div>
-        {/* <div>🐳</div>
-        <div></div>
-        <div></div>
-        <div></div> */}
       </div>
     </div>
   );

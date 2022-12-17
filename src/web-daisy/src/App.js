@@ -1,5 +1,6 @@
 import BarChart from "./BarChart.js";
-import { useState } from "react";
+import Container from "./Container.js"
+import { useState, useEffect } from "react";
 import './App.css';
 import './dist/output.css'
 
@@ -14,9 +15,9 @@ function App() {
     { cpu: 2016, time: 28 },
   ];
 
+  const [containerList, updateContainerList] = useState(() => [{ id: 1 }, { id: 2 }, { id: 3 }, { id: 4 }]);
   const [userData, setUserData] = useState({
     labels: datas.map((data) => {
-      console.log(data)
       return data.cpu;
     }),
     datasets: [{
@@ -24,12 +25,30 @@ function App() {
       data: datas.map((data) => data.time),
     }]
   })
-  const buttons = [];
-  for (let i = 0; i <= 5; i++) {
-    const button = (
-      <button id={i} className="btn btn-outline btn-accent min-w-full">Container {i + 1}</button>
-    );
-    buttons.push(button);
+
+  //request to server to update the container list on component mount..and after every update???
+  useEffect(() => {
+    fetch('/api/container')
+      .then(response => response.json())
+      .then(data => updateContainerList(() => data))
+      .catch(err => console.log('error'))
+  }, []);
+
+  // const buttons = [];
+  // for (let i = 0; i <= 5; i++) {
+  //   const button = (
+  //     <button id={i} className="btn btn-outline btn-accent min-w-full">Container {i + 1}</button>
+  //   );
+  //   buttons.push(button);
+  // }
+  const containers = [];
+  //loops through the container list and pushes new container div into containers array
+  for (let i = 0; i < containerList.length; i++) {
+    containers.push(<Container
+      key={`container-${i}`}
+      id={containerList[i].id}
+      value={`container-${i}`}
+    />)
   }
   return (
     <div className="App bg-slate-800">
@@ -38,7 +57,7 @@ function App() {
       </header>
       <section className="Sidebar bg-slate-900" >
         <div className="pt-2">
-          {buttons}
+          {containers}
           <button className="btn btn-outline btn-accent min-w-full">All Containers</button>
         </div>
       </section>
