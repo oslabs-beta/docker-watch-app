@@ -1,5 +1,5 @@
 {
-  "name": "dockervision",
+  "name": "api",
   "version": "0.0.1",
   "description": "",
   "main": "index-api.js",
@@ -7,19 +7,19 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node ./index-api.js"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/oslabs-beta/DockerVision.git"
-  },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/oslabs-beta/DockerVision/issues"
-  },
-  "homepage": "https://github.com/oslabs-beta/DockerVision#readme",
   "dependencies": {
+    "@influxdata/influxdb-client": "^1.33.0",
+    "@influxdata/influxdb-client-apis": "^1.33.0",
     "cors": "^2.8.5",
+    "dotenv": "^16.0.3",
     "express": "^4.18.2"
+  },
+  "devDependencies": {
+    "eslint": "^8.29.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.26.0"
   }
 }
