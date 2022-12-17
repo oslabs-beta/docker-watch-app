@@ -1,7 +1,10 @@
-'use strict';
-
+/* eslint-disable no-console */
 const express = require('express');
 const cors = require('cors');
+
+const controller = require('./controller');
+
+// console.log(controller.getStatsFromDB);
 
 const PORT = 8081;
 const HOST = '0.0.0.0';
@@ -10,8 +13,11 @@ const app = express();
 app.use(cors());
 
 app.get('/', (req, res) => {
-  console.log('API called');
   res.sendStatus(200);
+});
+
+app.get('/api', controller.getStatsFromDB, (req, res) => {
+  res.status(200).json(res.locals.data);
 });
 
 app.use('*', (req, res, next) => {
@@ -23,17 +29,14 @@ app.use('*', (req, res, next) => {
   next(errorObj);
 });
 
-app.use((err, req, res, next) => {
+app.use((err, req, res) => {
   const defaultErr = {
-    log: 'Express error handler caught unknown middleware error',
+    log: `Express error handler caught unknown middleware error: ${err}`,
     status: 500,
     message: { err: 'An error occurred' },
   };
-
-  const errorObj = Object.assign(defaultErr, err);
-  console.log(errorObj.log);
-
-  res.status(errorObj.status).json(errorObj.message);
+  console.log(defaultErr.log);
+  res.status(defaultErr.status).send(defaultErr.message);
 });
 
 app.listen(PORT, HOST, () => {
