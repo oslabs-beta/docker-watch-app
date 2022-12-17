@@ -17,7 +17,10 @@ const dbFunc = (containerStats) => {
   const writeApi = client.getWriteApi(org, bucket, 's');
 
   // Create a point and write it to the buffer
-  writeApi.useDefaultTags({ container_id: 'container_id', container_name: 'container_name' });
+  writeApi.useDefaultTags({
+    container_id: 'container_id',
+    container_name: 'container_name',
+  });
 
   /* Use the Point() constructor to create a point,
   In InfluxDB, a point represents a single data record */
@@ -32,9 +35,29 @@ const dbFunc = (containerStats) => {
     .tag('container_name', containerStats.id)
     .floatField('total_usage', containerStats.memory);
 
+  const pointDisk = new Point('Disk')
+    .tag('container_id', containerStats.name)
+    .tag('container_name', containerStats.id)
+    .floatField('read_value', containerStats.disk_read)
+    .floatField('write_value', containerStats.disk_write);
+
+  const pointNetwork = new Point('Network')
+    .tag('container_id', containerStats.name)
+    .tag('container_name', containerStats.id)
+    .floatField('rx_bytes', containerStats.rx_bytes)
+    .floatField('rx_dropped', containerStats.rx_dropped)
+    .floatField('rx_errors', containerStats.rx_errors)
+    .floatField('rx_packets', containerStats.rx_packets)
+    .floatField('tx_bytes', containerStats.tx_bytes)
+    .floatField('tx_dropped', containerStats.tx_dropped)
+    .floatField('tx_errors', containerStats.tx_errors)
+    .floatField('tx_packets', containerStats.tx_packets);
+
   // Use the writePoint() method to write the point to your InfluxDB bucket
   writeApi.writePoint(pointCPU);
   writeApi.writePoint(pointMemory);
+  writeApi.writePoint(pointDisk);
+  writeApi.writePoint(pointNetwork);
 
   // Flush pending writes and close writeApi
   writeApi
