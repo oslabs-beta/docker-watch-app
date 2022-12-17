@@ -33,7 +33,7 @@ function App() {
   }
   return (
     <div className="App bg-slate-800">
-      <header className="Header bg-sky-600 font-mono inline-block align-middle text-5xl pl-4 text-black">
+      <header className="Header bg-sky-600 font-mono inline-block align-middle text-5xl pl-4 text-white">
         <h1>DockerWatch 🐳</h1>
       </header>
       <section className="Sidebar bg-slate-900" >
