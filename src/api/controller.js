@@ -48,4 +48,74 @@ controller.getStatsFromDB = (req, res, next) => {
   });
 };
 
+controller.getContainers = (req, res, next) => {
+  // for real data, this will be a query to the db for container name and id
+  // this data will be parsed into an object array with structure like the one below
+  // mock data
+  res.locals.containers = [
+    {
+      name: '/docker-probe-testing',
+      id: 'b0020246ccfbbcab0b51972162a4beaa0ed76eaa1287975ca600c79ddbc51622',
+    },
+    {
+      name: 'container2',
+      id: '123445356457252345',
+    },
+    {
+      name: 'container3',
+      id: '563457456857942347',
+    },
+  ];
+  // console.log(res.locals.containers[0]);
+  return next();
+};
+
+controller.getContainerStats = (req, res, next) => {
+  const { id } = req.params;
+  // for real data we will make call to db to get all data
+  // mock data from above
+  const containers = [{
+    name: '/docker-probe-testing',
+    id: 'b0020246ccfbbcab0b51972162a4beaa0ed76eaa1287975ca600c79ddbc51622',
+  },
+  {
+    name: 'container2',
+    id: '123445356457252345',
+  },
+  {
+    name: 'container3',
+    id: '563457456857942347',
+  },
+  ];
+  containers.forEach((container) => {
+    if (container.id === id) {
+      // for real data we will query db for specific id
+      // data will be parsed into an array of objects with the format of the one below
+      // mock data
+      res.locals.stats = [{
+        time: '2022-12-17T17:23:52Z',
+        cpu_total_usage: 898278000,
+        memory_total_usage: 43073536,
+      },
+      {
+        time: '2022-12-17T17:23:57Z',
+        cpu_total_usage: 913082000,
+        memory_total_usage: 43290624,
+      },
+      {
+        time: '2022-12-17T17:24:04Z',
+        cpu_total_usage: 1164931000,
+        memory_total_usage: 52273152,
+      },
+      {
+        time: '2022-12-17T17:24:10Z',
+        cpu_total_usage: 1180677000,
+        memory_total_usage: 53178368,
+      },
+      ];
+    }
+  });
+  return next();
+};
+
 module.exports = controller;
