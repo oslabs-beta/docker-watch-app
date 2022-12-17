@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
-export default function Container({id}) {
+export default function Container({ id, text }) {
   return (
-    <div className='container' >{id}</div>
+    <button className="btn btn-outline btn-accent min-w-full">{text}</button>
   )
 }
