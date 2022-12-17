@@ -26,24 +26,24 @@ const dbFunc = (containerStats) => {
   In InfluxDB, a point represents a single data record */
 
   const pointCPU = new Point('CPU')
-    .tag('container_id', containerStats.name)
-    .tag('container_name', containerStats.id)
+    .tag('container_id', containerStats.id)
+    .tag('container_name', containerStats.name)
     .floatField('total_usage', containerStats.cpu);
 
   const pointMemory = new Point('Memory')
-    .tag('container_id', containerStats.name)
-    .tag('container_name', containerStats.id)
+    .tag('container_id', containerStats.id)
+    .tag('container_name', containerStats.name)
     .floatField('total_usage', containerStats.memory);
 
   const pointDisk = new Point('Disk')
-    .tag('container_id', containerStats.name)
-    .tag('container_name', containerStats.id)
+    .tag('container_id', containerStats.id)
+    .tag('container_name', containerStats.name)
     .floatField('read_value', containerStats.disk_read)
     .floatField('write_value', containerStats.disk_write);
 
   const pointNetwork = new Point('Network')
-    .tag('container_id', containerStats.name)
-    .tag('container_name', containerStats.id)
+    .tag('container_id', containerStats.id)
+    .tag('container_name', containerStats.name)
     .floatField('rx_bytes', containerStats.rx_bytes)
     .floatField('rx_dropped', containerStats.rx_dropped)
     .floatField('rx_errors', containerStats.rx_errors)
