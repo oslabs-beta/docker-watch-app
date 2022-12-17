@@ -1,5 +1,6 @@
 import BarChart from "./BarChart.js";
 import Container from "./Container.jsx"
+import GraphContainer from "./GraphContainer";
 import React, { useState, useEffect } from "react";
 import './App.css';
 // import './dist/output.css'
@@ -25,18 +26,29 @@ function App() {
       data: datas.map((data) => data.time),
     }]
   })
+  //TODO: grap data from clicked container and add the correct lables/datasets that will be passed down to GraphContianer which will render the correct chart
+  const [CPUChart, setCPUChart] = useState((data) => {
+    return {
+      labels: datas.map((data) => {
+        return data.cpu;
+      }),
+      datasets: [{
+        label: "CPU",
+        data: datas.map((data) => data.time),
+      }]
+    }
+  })
 
   //request to server to update the container list on component mount..and after every update???
   useEffect(() => {
     getContainers()
   });
 
-
   const getContainers = () => {
     fetch('http://localhost:8081/api/containers')
       .then(response => response.json())
       .then(data => {
-        console.log("Data: ", data)
+        // console.log("Data: ", data)
         updateContainerList(data)
       })
       .catch(err => console.log(err))
@@ -46,6 +58,8 @@ function App() {
   //loops through the container list and pushes new container div into containers array
   for (let i = 0; i < containerList.length; i++) {
     containers.push(<Container
+      setUserData={setUserData}
+      setCPUChart={setCPUChart}
       key={`container-${i}`}
       id={containerList[i].id}
       text={`container-${containerList[i].name}`}
@@ -62,7 +76,11 @@ function App() {
           <button className="btn btn-outline btn-accent min-w-full">All Containers</button>
         </div>
       </section>
-      <div className='Main inline-grid grid-cols-2 gap-1' >
+      <GraphContainer
+        //TODO: pass down CPU DATA and then set it to be it's data. (may need to make CPU it's own folder)
+        userData={userData}
+        CPUChart={CPUChart} className="Main" />
+      {/* <div className='Main inline-grid grid-cols-2 gap-1' >
         <div>
           <BarChart chartData={userData} />
         </div>
@@ -75,7 +93,7 @@ function App() {
         <div>
           <BarChart chartData={userData} />
         </div>
-      </div>
+      </div> */}
     </div>
   );
 }
