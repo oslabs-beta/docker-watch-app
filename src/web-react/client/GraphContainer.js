@@ -1,24 +1,19 @@
 import BarChart from "./BarChart.js";
-import Container from "./Container.jsx"
+import Container from "./Container.jsx";
 import React, { useState, useEffect } from "react";
-//TODO make CPU in it's own folder and render here...see BarChart for reference
-function GraphContainer({ userData }) {
-  return (
-    <div className='Main inline-grid grid-cols-2 gap-1' >
-      <div>
-        <BarChart chartData={userData} />
+// creates a chart for every graph in graphData
+function GraphContainer({ graphData }) {
+  // cancel render if no graph data
+  if (!graphData?.length) return;
+  // convert array of chartJS-ready graph data to BarChart elements
+  const charts = graphData.map((graph, i) => {
+    return (
+      <div key={i}>
+        <BarChart graphData={graph}></BarChart>
       </div>
-      <div>
-        <BarChart chartData={userData} />
-      </div>
-      <div>
-        <BarChart chartData={userData} />
-      </div>
-      <div>
-        <BarChart chartData={userData} />
-      </div>
-    </div>
-  )
+    );
+  });
+  return <div className="Main inline-grid grid-cols-2 gap-1">{charts}</div>;
 }
 
-export default GraphContainer
+export default GraphContainer;
