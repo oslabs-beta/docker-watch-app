@@ -1,6 +1,17 @@
 version: '3.9'
 
 services:
+  sensor1:
+    build: ./src/sensors/sensor1
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    environment:
+      - DB_INFLUXDB_INIT_ADMIN_TOKEN=${DB_INFLUXDB_INIT_ADMIN_TOKEN}
+      - DB_INFLUXDB_INIT_ORG=${DB_INFLUXDB_INIT_ORG}
+      - DB_INFLUXDB_INIT_BUCKET=${DB_INFLUXDB_INIT_BUCKET}
+      - DB_URL=http://db:8086
+      - SENSORS_SENSOR1_LOOKUP_FREQUENCY=${SENSORS_SENSOR1_LOOKUP_FREQUENCY}
+    command: npm run start
   db:
     image: influxdb:2.4
     ports:
@@ -18,10 +29,10 @@ services:
     ports:
       - '8081:8081' # TODO might not expose port in non-dev builds
     environment:
+      - DB_INFLUXDB_INIT_ORG=${DB_INFLUXDB_INIT_ORG}
+      - DB_INFLUXDB_INIT_BUCKET=${DB_INFLUXDB_INIT_BUCKET}
+      - DB_INFLUXDB_INIT_ADMIN_TOKEN=${DB_INFLUXDB_INIT_ADMIN_TOKEN}
       - DB_URL=http://db:8086
-      - DOCKER_INFLUXDB_INIT_ORG=${DB_INFLUXDB_INIT_ORG}
-      - DOCKER_INFLUXDB_INIT_BUCKET=${DB_INFLUXDB_INIT_BUCKET}
-      - DOCKER_INFLUXDB_INIT_ADMIN_TOKEN=${DB_INFLUXDB_INIT_ADMIN_TOKEN}
     command: npm run start
   web:
     build: ./src/web-temp
