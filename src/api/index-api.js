@@ -12,12 +12,6 @@ const HOST = '0.0.0.0';
 const app = express();
 app.use(cors());
 
-// serve all data from db
-app.get('/api', controller.getStatsFromDB, (req, res) => {
-  res.status(200).json(res.locals.data);
-});
-
-// TODO: serve mock data to frontend
 // send an object with all stats on a specific container id
 app.get('/api/container/:id', controller.getContainerStats, (req, res) => {
   res.status(200).json(res.locals.stats);

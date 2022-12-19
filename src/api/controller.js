@@ -8,8 +8,11 @@ const DB_ORG = process.env.DB_INFLUXDB_INIT_ORG;
 const DB_BUCKET = process.env.DB_INFLUXDB_INIT_BUCKET;
 
 const controller = {};
-// eslint-disable-next-line no-unused-expressions
-controller.getStatsFromDB = (req, res, next) => {
+
+controller.getContainers = (req, res, next) => {
+  // query the db to return an array of objects with container names and ids
+  // TODO: implement thin solution: currently querying all rows and checking each against array
+
   // connect to the influx db using url and token
   const influxDB = new InfluxDB({ url: DB_URL, token: DB_API_TOKEN });
 
@@ -20,67 +23,45 @@ controller.getStatsFromDB = (req, res, next) => {
   const range = '1h';
 
   // initialize array to collect query data
-  const data = [];
-  const dataObj = {};
-  const containerID = '2aca32836fada5133bb1d2964c7de538ede8a46d2b4839720e32f302817ac28f';
+  const containers = [];
 
   // write the query
   const query = `from(bucket: "${DB_BUCKET}")
-    |> range(start: -${range}) 
-    |> filter(fn: (r) => r["container_id"] == "${containerID}")`;
+    |> range(start: -${range})`;
   queryApi.queryRows(query, {
     next(row, tableMeta) {
       const o = tableMeta.toObject(row);
-      // eslint-disable-next-line no-underscore-dangle
-      // const measurementObj = {};
-      // measurementObj[`${o._measurement}.total_usage`] = o._value;
-      if (!dataObj[o._time]) {
-        dataObj[o._time] = {};
+      // keep track of if the container is in the array
+      let containerInArr = false;
+      containers.forEach((nameObj) => {
+        if (nameObj.id === o.container_id) containerInArr = true;
+      });
+      // if container not in array, add it
+      if (!containerInArr) {
+        containers.push({
+          name: o.container_name,
+          id: o.container_id,
+        });
       }
-      // console.log(o._tag);
-      dataObj[o._time][`${o._measurement}_${o._field}`] = o._value;
-
-      data.push(dataObj);
-      // console.log(data);
     },
     error(error) {
       console.log('Finished ERROR');
       return next(error);
     },
     complete() {
-      console.log('Finished SUCCESS');
-      res.locals.data = dataObj;
+      // console.log('Finished SUCCESS');
+      res.locals.containers = containers;
       return next();
     },
   });
 };
 
-controller.getContainers = (req, res, next) => {
-  // for real data, this will be a query to the db for container name and id
-  // this data will be parsed into an object array with structure like the one below
-  // mock data
-  res.locals.containers = [
-    {
-      name: '/docker-probe-testing',
-      id: 'b0020246ccfbbcab0b51972162a4beaa0ed76eaa1287975ca600c79ddbc51622',
-    },
-    {
-      name: 'container2',
-      id: '123445356457252345',
-    },
-    {
-      name: 'container3',
-      id: '563457456857942347',
-    },
-  ];
-  // console.log(res.locals.containers[0]);
-  return next();
-};
-
 controller.getContainerStats = (req, res, next) => {
+  // query db for all stats for a specific container
+
+  // destructure id from request
   const { id } = req.params;
-  // for real data we will make call to db to get all data
-  // mock data from above
+
   // connect to the influx db using url and token
   const influxDB = new InfluxDB({ url: DB_URL, token: DB_API_TOKEN });
 
@@ -102,20 +83,19 @@ controller.getContainerStats = (req, res, next) => {
     next(row, tableMeta) {
       const o = tableMeta.toObject(row);
       // eslint-disable-next-line no-underscore-dangle
+      // if current time not in obj, add it
       if (!dataObj[o._time]) {
         dataObj[o._time] = {};
       }
-      // console.log(o._tag);
+      // add info on curent row to the object at the associated time key
       dataObj[o._time][`${o._measurement}_${o._field}`] = o._value;
-
-      // console.log(data);
     },
     error(error) {
       console.log('Finished ERROR');
       return next(error);
     },
     complete() {
-      console.log('Finished SUCCESS');
+      // console.log('Finished SUCCESS');
       res.locals.stats = dataObj;
       return next();
     },
