@@ -15,10 +15,10 @@ function App() {
   const formatGraphData = (data) => {
     if (!data[0]) return;
     const datasets = {
-      cpu: 'cpu_total_usage',
-      memory: 'memory_total_usage'
+      cpu: "cpu_total_usage",
+      memory: "memory_total_usage",
     };
-    return Object.keys(datasets).map(dataset => {
+    return Object.keys(datasets).map((dataset) => {
       return {
         labels: data.map((el) => {
           return el.time;
@@ -27,7 +27,7 @@ function App() {
           {
             label: dataset,
             data: data.map((el) => {
-              return el[datasets[dataset]];     
+              return el[datasets[dataset]];
             }),
           },
         ],
@@ -50,8 +50,8 @@ function App() {
         id={container.id}
         text={`container-${container.name}`}
       />
-    )
-  })
+    );
+  });
   return (
     <div className="App bg-slate-800">
       <header className="Header bg-sky-600 font-mono inline-block align-middle text-5xl pl-4 text-white">
@@ -67,7 +67,9 @@ function App() {
       </section>
       <GraphContainer
         //TODO: pass down CPU DATA and then set it to be it's data. (may need to make CPU it's own folder)
-        graphData={formatGraphData(containerData)} className="Main" />
+        graphData={formatGraphData(containerData)}
+        className="Main"
+      />
       {/* <div className='Main inline-grid grid-cols-2 gap-1' >
         <div>
           <BarChart chartData={graphData} />
