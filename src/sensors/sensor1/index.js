@@ -1,21 +1,17 @@
 require('dotenv').config({ path: '../../../.env' });
 
-const lookupFrequency = process.env.SENSORS_SENSOR1_LOOKUP_FREQUENCY < 5000
-  ? 5000 : process.env.SENSORS_SENSOR1_LOOKUP_FREQUENCY;
-
 const http = require('node:http');
 const dbFunc = require('./dbInsert');
 
-const clientOptions = {
-  socketPath: '/var/run/docker.sock',
-  path: '/v1.41/containers/json',
-  method: 'GET',
-};
-
-// declare array to hold container ids
-const containerIds = [];
-
 const getContainerIDsAndWriteToDB = () => {
+  const containerIds = [];
+
+  const clientOptions = {
+    socketPath: '/var/run/docker.sock',
+    path: '/v1.41/containers/json',
+    method: 'GET',
+  };
+
   const client = http.request(clientOptions, (res) => {
     let body = [];
 
@@ -102,5 +98,14 @@ const getContainerIDsAndWriteToDB = () => {
   client.end();
 };
 
-// invoke this function every 10 sec to store stats in the DB
-setInterval(getContainerIDsAndWriteToDB, lookupFrequency);
+const getLookupFrequency = () => {
+  const defaultMinimumLookupInMS = 5000;
+  const envLookupFrequency = Number(process.env.SENSORS_SENSOR1_LOOKUP_FREQUENCY);
+
+  if (Number.isNaN(envLookupFrequency) || envLookupFrequency < defaultMinimumLookupInMS) {
+    return defaultMinimumLookupInMS;
+  }
+  return envLookupFrequency;
+};
+
+setInterval(getContainerIDsAndWriteToDB, getLookupFrequency());
