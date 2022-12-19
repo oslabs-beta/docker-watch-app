@@ -11,8 +11,10 @@ const org = process.env.DB_INFLUXDB_INIT_ORG;
 const bucket = process.env.DB_INFLUXDB_INIT_BUCKET;
 
 const dbFunc = (containerStats) => {
+  const dbURL = process.env.DB_URL || 'http://127.0.0.1:8086';
+
   // Create a write client from the getWriteApi method. Provide your `org` and `bucket`
-  const client = new InfluxDB({ url: 'http://localhost:8086', token });
+  const client = new InfluxDB({ url: dbURL, token });
 
   const writeApi = client.getWriteApi(org, bucket, 's');
 
