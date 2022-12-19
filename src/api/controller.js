@@ -11,7 +11,6 @@ const controller = {};
 
 controller.getContainers = (req, res, next) => {
   // query the db to return an array of objects with container names and ids
-  // TODO: implement thin solution: currently querying all rows and checking each against array
 
   // connect to the influx db using url and token
   const influxDB = new InfluxDB({ url: DB_URL, token: DB_API_TOKEN });
@@ -27,7 +26,9 @@ controller.getContainers = (req, res, next) => {
 
   // write the query
   const query = `from(bucket: "${DB_BUCKET}")
-    |> range(start: -${range})`;
+    |> range(start: -${range})
+    |> group(columns: ["container_id", "container_name"])
+    |> distinct(column: "container_id")`;
   queryApi.queryRows(query, {
     next(row, tableMeta) {
       const o = tableMeta.toObject(row);
