@@ -63,15 +63,15 @@ const formatGraphData = (data) => {
   const adjustTimeFrame = (metrics, adjustment) => {
     for (const key in metrics) {
       const newArr = [];
-      for (let j = 0; j < metrics[key].length; j += adjustment * 5) {
+      for (let j = 0; j < metrics[key].length; j += adjustment) {
         newArr.push(metrics[key][j]);
       }
       metrics[key] = newArr;
     }
     return metrics;
-  };
+  }; 
 
-  const metrics = adjustTimeFrame({ ...getMetricArrays(data) }, 40);
+  const metrics = adjustTimeFrame({ ...getMetricArrays(data) }, 20);
 
   const {
     dates,
