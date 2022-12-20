@@ -4,6 +4,7 @@ import LineChart from "./LineChart.js";
 const formatGraphData = (data) => {
   // takes in data and formats as object of arrays primed for chartjs
   const getMetricArrays = (data) => {
+    // an empty array for every datapoint being extracted from database
     const dates = [];
     const times = [];
     const CPU_total_usage = [];
@@ -18,7 +19,7 @@ const formatGraphData = (data) => {
     const Network_tx_packets = [];
     const Disk_read_value = [];
     const Disk_write_value = [];
-
+    // represent arrays as object of arrays
     const metricArrays = {
       dates: [],
       times: [],
@@ -35,10 +36,13 @@ const formatGraphData = (data) => {
       Disk_read_value: [],
       Disk_write_value: [],
     };
-
+    // iterate over every entry of object and store in empty arrays
     for (const [time, values] of Object.entries(data)) {
+      // format time in human readable format
       const timestamp = new Date(time).toLocaleString();
+      // day date only
       metricArrays.dates.push(timestamp.slice(0, 10));
+      // time only
       metricArrays.times.push(timestamp.slice(12));
       metricArrays.CPU_total_usage.push(values.CPU_total_usage);
       metricArrays.Memory_total_usage.push(values.Memory_total_usage);
