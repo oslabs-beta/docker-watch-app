@@ -13,15 +13,15 @@ const app = express();
 app.use(cors());
 
 // send an object with all stats of a specific container id
-app.get('/api/containers/:id/stats/', controller.getContainerStats, (req, res) => {
+app.get('/api/v1/containers/:id/stats/', controller.getContainerStats, (req, res) => {
   res.status(200).json(res.locals.stats);
 });
 // send an object with specific stats of a specific container id
-app.get('/api/containers/:id/stats/:metric', controller.getContainerStats, (req, res) => {
+app.get('/api/v1/containers/:id/stats/:metric', controller.getContainerStats, (req, res) => {
   res.status(200).json(res.locals.stats);
 });
 // send an object with all running container ids and names
-app.get('/api/containers', controller.getContainers, (req, res) => {
+app.get('/api/v1/containers', controller.getContainers, (req, res) => {
   res.status(200).json(res.locals.containers);
 });
 
