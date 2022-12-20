@@ -75,7 +75,7 @@ controller.getContainerStats = (req, res, next) => {
   // initialize array to collect query data
   const dataObj = {};
 
-  // write the query for the passed in id and all metrics
+  // write the query for the passed in metric, or all metrics if no metric passed in
   let query = '';
   if (metric === 'disk') {
     query = `from(bucket: "${DB_BUCKET}")
