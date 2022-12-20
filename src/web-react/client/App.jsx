@@ -44,7 +44,7 @@ function App() {
         </div>
       </section>
       <GraphContainer
-        //TODO: pass down CPU DATA and then set it to be it's data. (may need to make CPU it's own folder)
+        //TODO: pass down CPU DATA and then   set it to be it's data. (may need to make CPU it's own folder)
         containerData={containerData}
         className="Main"
       />
