@@ -47,38 +47,41 @@ const getContainerIDsAndWriteToDB = () => {
           // after collection, parse the buffer into a js object
           resStats.on('end', () => {
             statsBody = JSON.parse(Buffer.concat(statsBody));
-
-            // add stats to the db
-            dbFunc({
+            if (!statsBody) return;
+            try {
+              dbFunc({
               // CPU total usage
-              cpu: statsBody.cpu_stats.cpu_usage.total_usage,
-              // Disk utilization (Read and Write)
-              disk_read: statsBody.blkio_stats.io_service_bytes_recursive[0].value,
-              disk_write: statsBody.blkio_stats.io_service_bytes_recursive[1].value,
-              // Container ID
-              id: statsBody.id,
-              // Memory total usage
-              memory: statsBody.memory_stats.usage,
-              // Container Name
-              name: statsBody.name,
-              // Network I/O:
-              // displays the amount of received data
-              rx_bytes: statsBody.networks.eth0.rx_bytes,
-              // number of dropped packets for received data
-              rx_dropped: statsBody.networks.eth0.rx_dropped,
-              // displays the number of RX errors
-              rx_errors: statsBody.networks.eth0.rx_errors,
-              // displays the number of received packets
-              rx_packets: statsBody.networks.eth0.rx_packets,
-              // displays the amount of transmitted data
-              tx_bytes: statsBody.networks.eth0.tx_bytes,
-              // number of dropped packets for transmitted data
-              tx_dropped: statsBody.networks.eth0.tx_dropped,
-              // displays the number of TX errors
-              tx_errors: statsBody.networks.eth0.tx_errors,
-              // displays the number of transmitted packets
-              tx_packets: statsBody.networks.eth0.tx_packets,
-            });
+                cpu: statsBody.cpu_stats.cpu_usage.total_usage,
+                // Disk utilization (Read and Write)
+                disk_read: statsBody.blkio_stats.io_service_bytes_recursive[0].value,
+                disk_write: statsBody.blkio_stats.io_service_bytes_recursive[1].value,
+                // Container ID
+                id: statsBody.id,
+                // Memory total usage
+                memory: statsBody.memory_stats.usage,
+                // Container Name
+                name: statsBody.name,
+                // Network I/O:
+                // displays the amount of received data
+                rx_bytes: statsBody.networks.eth0.rx_bytes,
+                // number of dropped packets for received data
+                rx_dropped: statsBody.networks.eth0.rx_dropped,
+                // displays the number of RX errors
+                rx_errors: statsBody.networks.eth0.rx_errors,
+                // displays the number of received packets
+                rx_packets: statsBody.networks.eth0.rx_packets,
+                // displays the amount of transmitted data
+                tx_bytes: statsBody.networks.eth0.tx_bytes,
+                // number of dropped packets for transmitted data
+                tx_dropped: statsBody.networks.eth0.tx_dropped,
+                // displays the number of TX errors
+                tx_errors: statsBody.networks.eth0.tx_errors,
+                // displays the number of transmitted packets
+                tx_packets: statsBody.networks.eth0.tx_packets,
+              });
+            } catch (error) {
+              console.log(error);
+            }
           });
         });
 
