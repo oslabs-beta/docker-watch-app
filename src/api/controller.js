@@ -61,7 +61,7 @@ controller.getContainerStats = (req, res, next) => {
   // query db for all stats for a specific container
 
   // destructure id from request
-  const { id } = req.params;
+  const { id, metric } = req.params;
 
   // connect to the influx db using url and token
   const influxDB = new InfluxDB({ url: DB_URL, token: DB_API_TOKEN });
@@ -74,12 +74,34 @@ controller.getContainerStats = (req, res, next) => {
 
   // initialize array to collect query data
   const dataObj = {};
-  const containerID = id;
 
-  // write the query
-  const query = `from(bucket: "${DB_BUCKET}")
+  // write the query for the passed in id and all metrics
+  let query = '';
+  if (metric === 'disk') {
+    query = `from(bucket: "${DB_BUCKET}")
     |> range(start: -${range}) 
-    |> filter(fn: (r) => r["container_id"] == "${containerID}")`;
+    |> filter(fn: (r) => r["container_id"] == "${id}")
+    |> filter(fn: (r) => r["_measurement"] == "Disk")`;
+  } else if (metric === 'memory') {
+    query = `from(bucket: "${DB_BUCKET}")
+    |> range(start: -${range}) 
+    |> filter(fn: (r) => r["container_id"] == "${id}")
+    |> filter(fn: (r) => r["_measurement"] == "Memory")`;
+  } else if (metric === 'cpu') {
+    query = `from(bucket: "${DB_BUCKET}")
+    |> range(start: -${range}) 
+    |> filter(fn: (r) => r["container_id"] == "${id}")
+    |> filter(fn: (r) => r["_measurement"] == "CPU")`;
+  } else if (metric === 'network') {
+    query = `from(bucket: "${DB_BUCKET}")
+    |> range(start: -${range}) 
+    |> filter(fn: (r) => r["container_id"] == "${id}")
+    |> filter(fn: (r) => r["_measurement"] == "Network")`;
+  } else {
+    query = `from(bucket: "${DB_BUCKET}")
+    |> range(start: -${range}) 
+    |> filter(fn: (r) => r["container_id"] == "${id}")`;
+  }
   queryApi.queryRows(query, {
     next(row, tableMeta) {
       const o = tableMeta.toObject(row);
