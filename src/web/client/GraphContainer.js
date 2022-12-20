@@ -2,6 +2,7 @@ import React from "react";
 import LineChart from "./LineChart.js";
 // format graph data for chartjs from container data
 const formatGraphData = (data) => {
+  // takes in data and formats as object of arrays primed for chartjs
   const getMetricArrays = (data) => {
     const dates = [];
     const times = [];
@@ -54,6 +55,19 @@ const formatGraphData = (data) => {
     }
     return metricArrays;
   };
+  // iterates over metric arrays and returns smaller data subset based on adjustment
+  const adjustTimeFrame = (metrics, adjustment) => {
+    for (const key in metrics) {
+      const newArr = [];
+      for (let j = 0; j < metrics[key].length; j += adjustment * 5) {
+        newArr.push(metrics[key][j]);
+      }
+      metrics[key] = newArr;
+    }
+    return metrics;
+  };
+
+  const metrics = adjustTimeFrame({ ...getMetricArrays(data) }, 40);
 
   const {
     dates,
@@ -70,7 +84,7 @@ const formatGraphData = (data) => {
     Network_tx_packets,
     Disk_read_value,
     Disk_write_value,
-  } = getMetricArrays(data);
+  } = metrics;
 
   const cpuData = {
     labels: times,
