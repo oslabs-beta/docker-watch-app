@@ -11,7 +11,6 @@ const HOST = '0.0.0.0';
 
 const app = express();
 app.use(cors());
-
 // send an object with all stats on a specific container id
 app.get('/api/container/:id', controller.getContainerStats, (req, res) => {
   res.status(200).json(res.locals.stats);

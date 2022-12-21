@@ -6,6 +6,7 @@ export default function Container({ id, text, setContainerData }) {
     fetch(`http://localhost:8081/api/container/${id}`)
       .then((response) => response.json())
       .then((data) => {
+        console.log('data: ', data)
         setContainerData(data);
       })
       .catch((err) => console.log(err));

@@ -1,6 +1,7 @@
 /* eslint-disable no-underscore-dangle */
 const { InfluxDB } = require('@influxdata/influxdb-client');
 require('dotenv').config({ path: '../../.env' });
+const getMetricArrays = require('./metricArrays');
 
 const DB_URL = process.env.DB_URL || 'http://127.0.0.1:8086';
 const DB_API_TOKEN = process.env.DB_INFLUXDB_INIT_ADMIN_TOKEN;
@@ -96,8 +97,8 @@ controller.getContainerStats = (req, res, next) => {
       return next(error);
     },
     complete() {
-      // console.log('Finished SUCCESS');
-      res.locals.stats = dataObj;
+      const formattedDataObj = getMetricArrays(dataObj);
+      res.locals.stats = formattedDataObj;
       return next();
     },
   });
