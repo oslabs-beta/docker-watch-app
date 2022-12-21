@@ -34,10 +34,10 @@ services:
       - DB_INFLUXDB_INIT_ADMIN_TOKEN=${DB_INFLUXDB_INIT_ADMIN_TOKEN}
       - DB_URL=http://db:8086
     command: npm run start
-  web:
-    build: ./src/web-temp
-    ports:
-      - '3000:8080'
-    command: npm run start
-    environment:
-      - API_URL=http://api:8081
+  # web:
+  #   build: ./src/web-temp
+  #   ports:
+  #     - '3000:8080'
+  #   command: npm run start
+  #   environment:
+  #     - API_URL=http://api:8081

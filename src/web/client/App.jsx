@@ -12,7 +12,7 @@ function App() {
   }, []);
   
   const getContainers = () => {
-    fetch("http://localhost:8081/api/containers")
+    fetch("http://localhost:8081/api/v1/containers")
       .then((response) => response.json())
       .then((data) => {
         updateContainerList(data);
