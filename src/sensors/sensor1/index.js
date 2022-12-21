@@ -48,19 +48,38 @@ const getContainerIDsAndWriteToDB = () => {
           resStats.on('end', () => {
             statsBody = JSON.parse(Buffer.concat(statsBody));
             if (!statsBody) return;
+
             try {
               dbFunc({
-              // CPU total usage
-                cpu: statsBody.cpu_stats.cpu_usage.total_usage,
+                // CPU metrics:
+                // total usage and previous usage (process time)
+                cpu_usage: statsBody.cpu_stats.cpu_usage.total_usage,
+                precpu_usage: statsBody.precpu_stats.cpu_usage.total_usage,
+                // system total usage
+                system_cpu_usage: statsBody.cpu_stats.system_cpu_usage,
+                system_precpu_usage: statsBody.precpu_stats.system_cpu_usage,
+
                 // Disk utilization (Read and Write)
                 disk_read: statsBody.blkio_stats.io_service_bytes_recursive[0].value,
                 disk_write: statsBody.blkio_stats.io_service_bytes_recursive[1].value,
+
                 // Container ID
                 id: statsBody.id,
-                // Memory total usage
-                memory: statsBody.memory_stats.usage,
+
+                // Memory stats:
+                // memory limit
+                memory_limit: statsBody.memory_stats.limit,
+                // memory total usage
+                memory_usage: statsBody.memory_stats.usage,
+
                 // Container Name
                 name: statsBody.name,
+
+                // Read and Preread timestamps:
+                time_delta: (Date.parse(statsBody.read) - Date.parse(statsBody.preread)),
+                parsed_read: (Date.parse(statsBody.read)),
+                parsed_preread: (Date.parse(statsBody.preread)),
+
                 // Network I/O:
                 // displays the amount of received data
                 rx_bytes: statsBody.networks.eth0.rx_bytes,
