@@ -1,7 +1,7 @@
 import React from "react";
 import LineChart from "./LineChart.js";
 // format graph data for chartjs from container data
-const formatGraphData = (data) => {
+export const formatGraphData = (data) => {
   // iterates over metric arrays and returns smaller data subset based on adjustment
   const adjustTimeFrame = (metrics, adjustment) => {
     for (const key in metrics) {
@@ -15,7 +15,7 @@ const formatGraphData = (data) => {
   };
 
   const metrics = adjustTimeFrame(data, 1);
-
+  // return metrics;
   const {
     dates,
     times,
@@ -109,7 +109,7 @@ const formatGraphData = (data) => {
 };
 const date = new Date().toLocaleDateString();
 // creates a chart for every graph in graphData
-function GraphContainer({ containerData }) {
+export function GraphContainer({ containerData }) {
   // cancel render if no graph data
   if (!Object.keys(containerData).length) return;
   const graphData = formatGraphData(containerData);
@@ -129,4 +129,4 @@ function GraphContainer({ containerData }) {
   );
 }
 
-export default GraphContainer;
+// export default GraphContainer;

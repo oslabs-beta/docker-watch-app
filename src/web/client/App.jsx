@@ -1,5 +1,5 @@
 import Container from "./Container.jsx";
-import GraphContainer from "./GraphContainer";
+import { GraphContainer } from "./GraphContainer";
 import React, { useState, useEffect } from "react";
 import "./App.css";
 
@@ -10,7 +10,7 @@ function App() {
   useEffect(() => {
     getContainers();
   }, []);
-  
+
   const getContainers = () => {
     fetch("http://localhost:8081/api/containers")
       .then((response) => response.json())
