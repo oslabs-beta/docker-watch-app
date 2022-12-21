@@ -69,9 +69,9 @@ const formatGraphData = (data) => {
       metrics[key] = newArr;
     }
     return metrics;
-  }; 
+  };
 
-  const metrics = adjustTimeFrame({ ...getMetricArrays(data) }, 20);
+  const metrics = adjustTimeFrame({ ...getMetricArrays(data) }, 1);
 
   const {
     dates,

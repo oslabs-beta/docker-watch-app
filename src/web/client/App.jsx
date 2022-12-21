@@ -1,6 +1,6 @@
 import Container from "./Container.jsx";
 import GraphContainer from "./GraphContainer";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import "./App.css";
 
 function App() {
@@ -10,7 +10,7 @@ function App() {
   useEffect(() => {
     getContainers();
   }, []);
-  
+
   const getContainers = () => {
     fetch("http://localhost:8081/api/v1/containers")
       .then((response) => response.json())
@@ -19,6 +19,7 @@ function App() {
       })
       .catch((err) => console.log(err));
   };
+  const intervalRef = useRef(0);
   const containers = containerList.map((container, i) => {
     return (
       <Container
@@ -26,6 +27,7 @@ function App() {
         key={`container-${i}`}
         id={container.id}
         text={`container-${container.name}`}
+        intervalRef={intervalRef}
       />
     );
   });
