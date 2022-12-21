@@ -19,6 +19,7 @@ function App() {
       })
       .catch((err) => console.log(err));
   };
+  // reference used to reset interval timer when containers are changed
   const intervalRef = useRef(0);
   const containers = containerList.map((container, i) => {
     return (
