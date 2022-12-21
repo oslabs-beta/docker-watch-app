@@ -1,4 +1,4 @@
-import { formatGraphData } from "./GraphContainer";
+// import { formatGraphData } from "./GraphContainer";
 
 export const cpuData = {
   labels: times,
