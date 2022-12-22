@@ -1,18 +1,16 @@
 const statCalcs = {};
 
 // calculate CPU Percentage
-statCalcs.cpuPerc = (cpuStats, preCpuStats, systemCpuStats, preSystemCpuStats, timeDelta) => {
+statCalcs.cpuPerc = (cpuStats, preCpuStats, systemCpuStats, preSystemCpuStats, onlineCpus) => {
   // console.log(typeof cpuStats);
   const cpuDelta = cpuStats - preCpuStats;
   const systemDelta = systemCpuStats - preSystemCpuStats;
-  console.log(cpuDelta);
-  console.log(systemDelta);
   if (cpuDelta > 0 && systemDelta > 0) {
-    return ((cpuDelta / systemDelta) / timeDelta) * 100;
+    return ((cpuDelta / systemDelta) * onlineCpus) * 100;
   } return 0;
 };
 
 // calculate Memory Percentage
-statCalcs.memoryPerc = (memUsage, memLimit) => memUsage / memLimit;
+statCalcs.memoryPerc = (memUsage, memLimit) => (memUsage / memLimit) * 100;
 
 module.exports = statCalcs;

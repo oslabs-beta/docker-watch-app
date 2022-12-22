@@ -58,6 +58,8 @@ const getContainerIDsAndWriteToDB = () => {
                 // system total usage
                 system_cpu_usage: statsBody.cpu_stats.system_cpu_usage,
                 system_precpu_usage: statsBody.precpu_stats.system_cpu_usage,
+                // Online CPUS
+                online_cpus: statsBody.cpu_stats.online_cpus,
 
                 // Disk utilization (Read and Write)
                 disk_read: statsBody.blkio_stats.io_service_bytes_recursive[0].value,
@@ -74,11 +76,6 @@ const getContainerIDsAndWriteToDB = () => {
 
                 // Container Name
                 name: statsBody.name,
-
-                // Read and Preread timestamps:
-                time_delta: (Date.parse(statsBody.read) - Date.parse(statsBody.preread)),
-                parsed_read: (Date.parse(statsBody.read)),
-                parsed_preread: (Date.parse(statsBody.preread)),
 
                 // Network I/O:
                 // displays the amount of received data
