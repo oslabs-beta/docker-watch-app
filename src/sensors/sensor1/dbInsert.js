@@ -30,13 +30,11 @@ const dbFunc = (containerStats) => {
   const pointCPU = new Point('CPU')
     .tag('container_id', containerStats.id)
     .tag('container_name', containerStats.name)
-    .floatField('time_delta', containerStats.time_delta)
-    .floatField('parsed_read', containerStats.parsed_read)
-    .floatField('parsed_preread', containerStats.parsed_preread)
     .floatField('cpu_usage', containerStats.cpu_usage)
     .floatField('precpu_usage', containerStats.precpu_usage)
     .floatField('system_cpu_usage', containerStats.system_cpu_usage)
-    .floatField('system_precpu_usage', containerStats.system_precpu_usage);
+    .floatField('system_precpu_usage', containerStats.system_precpu_usage)
+    .floatField('online_cpus', containerStats.online_cpus);
 
   const pointMemory = new Point('Memory')
     .tag('container_id', containerStats.id)
