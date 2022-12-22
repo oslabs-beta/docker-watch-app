@@ -114,14 +114,13 @@ function GraphContainer({ containerData }) {
   // cancel render if no graph data
   if (!Object.keys(containerData).length) return;
   const graphData = formatGraphData(containerData);
+  const titles = ['CPU', 'Memory', 'Network', 'Disk']
   // convert array of chartJS-ready graph data to BarChart elements
-  console.log('hello')
   const charts = graphData.map((graph, i) => {
     return (
       <div key={i}>
-        <div>{date}</div>
-        {/* <LineChart graphData={graph} option={{ title: { display: true, text: "Pizza", position: "top" } }}></LineChart> */}
-        <LineChart graphData={graph}></LineChart>
+        {/* <div className="date">{date}</div> */}
+        <LineChart graphData={graph} title={titles[i]}></LineChart>
       </div>
     );
   });
