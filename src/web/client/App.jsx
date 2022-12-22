@@ -1,7 +1,7 @@
 import Container from "./Container.jsx";
 import GraphContainer from "./GraphContainer";
 import React, { useState, useEffect, useRef } from "react";
-import "./App.css";
+import "./app.css";
 
 function App() {
   const [containerList, updateContainerList] = useState([]);
@@ -13,7 +13,9 @@ function App() {
   }, []);
 
   const getContainers = () => {
-    fetch("http://localhost:8081/api/v1/containers")
+    const apiURL = process.env.API_URL || "http://127.0.0.1:8081";
+
+    fetch(`${apiURL}/api/v1/containers`)
       .then((response) => response.json())
       .then((data) => {
         updateContainerList(data);
