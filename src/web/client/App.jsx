@@ -1,12 +1,14 @@
 import Container from "./Container.jsx";
 import GraphContainer from "./GraphContainer";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import "./app.css";
 
 function App() {
   const [containerList, updateContainerList] = useState([]);
   const [containerData, setContainerData] = useState({});
-  //request to server to update the container list on component mount..and after every update???
+  //contains the current running setInterval calling the function that requests the api for metric data for the last clicked container.
+  const intervalRef = useRef(0);
+  //request to server to update the container list on with objs containing the name and id of each running containers
   useEffect(() => {
     getContainers();
   }, []);
@@ -21,6 +23,8 @@ function App() {
       })
       .catch((err) => console.log(err));
   };
+
+  //loop through containersList and return an array containing container instances
   const containers = containerList.map((container, i) => {
     return (
       <Container
@@ -28,9 +32,11 @@ function App() {
         key={`container-${i}`}
         id={container.id}
         text={`container-${container.name}`}
+        intervalRef={intervalRef}
       />
     );
   });
+
   return (
     <div className="App bg-slate-800">
       <header className="Header bg-sky-600 font-mono inline-block align-middle text-5xl pl-4 text-white">
@@ -45,7 +51,6 @@ function App() {
         </div>
       </section>
       <GraphContainer
-        //TODO: pass down CPU DATA and then   set it to be it's data. (may need to make CPU it's own folder)
         containerData={containerData}
         className="Main"
       />

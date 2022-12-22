@@ -1,7 +1,8 @@
 /* eslint-disable no-underscore-dangle */
-const { InfluxDB } = require('@influxdata/influxdb-client');
 require('dotenv').config({ path: '../../.env' });
 
+const { InfluxDB } = require('@influxdata/influxdb-client');
+const getMetricArrays = require('./metricArrays');
 const statCalcs = require('./stat-calcs');
 
 const DB_URL = process.env.DB_URL || 'http://127.0.0.1:8086';
@@ -124,7 +125,6 @@ controller.getContainerStats = (req, res, next) => {
       if (!metric || metric === 'cpu') {
         const times = Object.keys(dataObj);
         times.forEach((time) => {
-          // console.log(dataObj[time]);
           dataObj[time].cpu_percentage = statCalcs.cpuPerc(
             dataObj[time].CPU_cpu_usage,
             dataObj[time].CPU_precpu_usage,
@@ -134,8 +134,8 @@ controller.getContainerStats = (req, res, next) => {
           );
         });
       }
-      // console.log('Finished SUCCESS');
-      res.locals.stats = dataObj;
+      const formattedDataObj = getMetricArrays(dataObj);
+      res.locals.stats = formattedDataObj;
       return next();
     },
   });
