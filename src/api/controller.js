@@ -1,7 +1,9 @@
 /* eslint-disable no-underscore-dangle */
-const { InfluxDB } = require('@influxdata/influxdb-client');
 require('dotenv').config({ path: '../../.env' });
+
+const { InfluxDB } = require('@influxdata/influxdb-client');
 const getMetricArrays = require('./metricArrays');
+const statCalcs = require('./stat-calcs');
 
 const DB_URL = process.env.DB_URL || 'http://127.0.0.1:8086';
 const DB_API_TOKEN = process.env.DB_INFLUXDB_INIT_ADMIN_TOKEN;
@@ -111,6 +113,7 @@ controller.getContainerStats = (req, res, next) => {
       if (!dataObj[o._time]) {
         dataObj[o._time] = {};
       }
+      // TODO: Change display to MB or kB etc
       // add info on curent row to the object at the associated time key
       dataObj[o._time][`${o._measurement}_${o._field}`] = o._value;
     },
@@ -119,6 +122,18 @@ controller.getContainerStats = (req, res, next) => {
       return next(error);
     },
     complete() {
+      if (!metric || metric === 'cpu') {
+        const times = Object.keys(dataObj);
+        times.forEach((time) => {
+          dataObj[time].cpu_percentage = statCalcs.cpuPerc(
+            dataObj[time].CPU_cpu_usage,
+            dataObj[time].CPU_precpu_usage,
+            dataObj[time].CPU_system_cpu_usage,
+            dataObj[time].CPU_system_precpu_usage,
+            dataObj[time].CPU_online_cpus,
+          );
+        });
+      }
       const formattedDataObj = getMetricArrays(dataObj);
       res.locals.stats = formattedDataObj;
       return next();
