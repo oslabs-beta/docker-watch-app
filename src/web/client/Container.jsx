@@ -3,7 +3,9 @@ import React from "react";
 export default function Container({ id, text, setContainerData }) {
   // fetch container data from server
   const containerOnClick = (id) => {
-    fetch(`http://localhost:8081/api/v1/containers/${id}/stats`)
+    const apiURL = process.env.API_URL || "http://127.0.0.1:8081";
+
+    fetch(`${apiURL}/api/v1/containers/${id}/stats`)
       .then((response) => response.json())
       .then((data) => {
         setContainerData(data);
