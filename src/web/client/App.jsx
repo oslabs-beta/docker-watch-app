@@ -1,7 +1,7 @@
 import Container from "./Container.jsx";
 import GraphContainer from "./GraphContainer";
 import React, { useState, useEffect } from "react";
-import "./App.css";
+import "./app.css";
 
 function App() {
   const [containerList, updateContainerList] = useState([]);
@@ -10,7 +10,7 @@ function App() {
   useEffect(() => {
     getContainers();
   }, []);
-  
+
   const getContainers = () => {
     const apiURL = process.env.API_URL || "http://127.0.0.1:8081";
 
