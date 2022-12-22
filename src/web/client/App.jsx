@@ -1,11 +1,12 @@
 import Container from "./Container.jsx";
 import GraphContainer from "./GraphContainer";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import "./App.css";
 
 function App() {
   const [containerList, updateContainerList] = useState([]);
   const [containerData, setContainerData] = useState({});
+  const intervalRef = useRef(0);
   //request to server to update the container list on component mount..and after every update???
   useEffect(() => {
     getContainers();
@@ -19,6 +20,7 @@ function App() {
       })
       .catch((err) => console.log(err));
   };
+
   const containers = containerList.map((container, i) => {
     return (
       <Container
@@ -26,9 +28,11 @@ function App() {
         key={`container-${i}`}
         id={container.id}
         text={`container-${container.name}`}
+        intervalRef={intervalRef}
       />
     );
   });
+
   return (
     <div className="App bg-slate-800">
       <header className="Header bg-sky-600 font-mono inline-block align-middle text-5xl pl-4 text-white">

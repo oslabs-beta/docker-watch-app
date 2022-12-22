@@ -21,7 +21,7 @@ const getMetricArrays = (data) => {
   // eslint-disable-next-line no-restricted-syntax
   for (const [time, values] of Object.entries(data)) {
     // format time in human readable format
-    const timestamp = new Date(time).toLocaleString();
+    const timestamp = new Date(time).toLocaleString('en-US', { timeZone: 'America/New_York' });
     // day date only
     metricArrays.dates.push(timestamp.slice(0, 10));
     // time only

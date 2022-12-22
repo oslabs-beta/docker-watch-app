@@ -6,14 +6,15 @@ const formatGraphData = (data) => {
   const adjustTimeFrame = (metrics, adjustment) => {
     for (const key in metrics) {
       const newArr = [];
-      for (let j = 0; j < metrics[key].length; j += adjustment) {
+      for (let j = metrics[key].length - 1; j >= 0; j -= adjustment) {
         newArr.push(metrics[key][j]);
       }
       metrics[key] = newArr;
     }
     return metrics;
   };
-
+  // let adjustmentFactor = 1
+  // if (data.times.length / adjustmentFactor > 20) adjustmentFactor += 1
   const metrics = adjustTimeFrame(data, 1);
   // return metrics;
   const {
@@ -41,6 +42,17 @@ const formatGraphData = (data) => {
         data: CPU_total_usage,
       },
     ],
+    // options: {
+    //   plugins: {
+    //     legend: {
+    //       title: {
+    //         font: {
+    //           size: 14
+    //         }
+    //       }
+    //     }
+    //   }
+    // }
   };
 
   const memoryData = {
