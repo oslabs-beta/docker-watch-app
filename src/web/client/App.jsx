@@ -14,7 +14,7 @@ function App() {
   const getContainers = () => {
     const apiURL = process.env.API_URL || "http://127.0.0.1:8081";
 
-    fetch(`${apiURL}/api/containers`)
+    fetch(`${apiURL}/api/v1/containers`)
       .then((response) => response.json())
       .then((data) => {
         updateContainerList(data);

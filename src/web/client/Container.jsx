@@ -5,7 +5,7 @@ export default function Container({ id, text, setContainerData }) {
   const containerOnClick = (id) => {
     const apiURL = process.env.API_URL || "http://127.0.0.1:8081";
 
-    fetch(`${apiURL}/api/container/${id}`)
+    fetch(`${apiURL}/api/v1/containers/${id}/stats`)
       .then((response) => response.json())
       .then((data) => {
         setContainerData(data);
