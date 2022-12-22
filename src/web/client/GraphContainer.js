@@ -20,16 +20,16 @@ const formatGraphData = (data) => {
   const {
     dates,
     times,
-    CPU_total_usage,
-    Memory_total_usage,
+    cpu_percentage,
+    Memory_memory_usage,
     Network_rx_bytes,
-    Network_rx_dropped,
-    Network_rx_errors,
-    Network_rx_packets,
+    // Network_rx_dropped,
+    // Network_rx_errors,
+    // Network_rx_packets,
     Network_tx_bytes,
-    Network_tx_dropped,
-    Network_tx_errors,
-    Network_tx_packets,
+    // Network_tx_dropped,
+    // Network_tx_errors,
+    // Network_tx_packets,
     Disk_read_value,
     Disk_write_value,
   } = metrics;
@@ -38,8 +38,8 @@ const formatGraphData = (data) => {
     labels: times,
     datasets: [
       {
-        label: "cpu",
-        data: CPU_total_usage,
+        label: "cpu_percentage",
+        data: cpu_percentage,
       },
     ],
   };
@@ -48,8 +48,8 @@ const formatGraphData = (data) => {
     labels: times,
     datasets: [
       {
-        label: "Memory_total_usage",
-        data: Memory_total_usage,
+        label: "Memory_usage",
+        data: Memory_memory_usage,
       },
     ],
   };
@@ -58,37 +58,37 @@ const formatGraphData = (data) => {
     labels: times,
     datasets: [
       {
-        label: "Network_rx_bytes",
+        label: "Network_input",
         data: Network_rx_bytes,
       },
+      // {
+      //   label: "Network_rx_dropped",
+      //   data: Network_rx_dropped,
+      // },
+      // {
+      //   label: "Network_rx_errors",
+      //   data: Network_rx_errors,
+      // },
+      // {
+      //   label: "Network_rx_packets",
+      //   data: Network_rx_packets,
+      // },
       {
-        label: "Network_rx_dropped",
-        data: Network_rx_dropped,
-      },
-      {
-        label: "Network_rx_errors",
-        data: Network_rx_errors,
-      },
-      {
-        label: "Network_rx_packets",
-        data: Network_rx_packets,
-      },
-      {
-        label: "Network_tx_bytes",
+        label: "Network_output",
         data: Network_tx_bytes,
       },
-      {
-        label: "Network_tx_dropped",
-        data: Network_tx_dropped,
-      },
-      {
-        label: "Network_tx_errors",
-        data: Network_tx_errors,
-      },
-      {
-        label: "Network_tx_packets",
-        data: Network_tx_packets,
-      },
+      // {
+      //   label: "Network_tx_dropped",
+      //   data: Network_tx_dropped,
+      // },
+      // {
+      //   label: "Network_tx_errors",
+      //   data: Network_tx_errors,
+      // },
+      // {
+      //   label: "Network_tx_packets",
+      //   data: Network_tx_packets,
+      // },
     ],
   };
 

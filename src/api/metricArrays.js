@@ -4,16 +4,16 @@ const getMetricArrays = (data) => {
   const metricArrays = {
     dates: [],
     times: [],
-    CPU_total_usage: [],
-    Memory_total_usage: [],
+    cpu_percentage: [],
+    Memory_memory_usage: [],
     Network_rx_bytes: [],
-    Network_rx_dropped: [],
-    Network_rx_errors: [],
-    Network_rx_packets: [],
+    // Network_rx_dropped: [],
+    // Network_rx_errors: [],
+    // Network_rx_packets: [],
     Network_tx_bytes: [],
-    Network_tx_dropped: [],
-    Network_tx_errors: [],
-    Network_tx_packets: [],
+    // Network_tx_dropped: [],
+    // Network_tx_errors: [],
+    // Network_tx_packets: [],
     Disk_read_value: [],
     Disk_write_value: [],
   };
@@ -26,16 +26,16 @@ const getMetricArrays = (data) => {
     metricArrays.dates.push(timestamp.slice(0, 10));
     // time only
     metricArrays.times.push(timestamp.slice(12));
-    metricArrays.CPU_total_usage.push(values.CPU_total_usage);
-    metricArrays.Memory_total_usage.push(values.Memory_total_usage);
+    metricArrays.cpu_percentage.push(values.cpu_percentage);
+    metricArrays.Memory_memory_usage.push(values.Memory_memory_usage);
     metricArrays.Network_rx_bytes.push(values.Network_rx_bytes);
-    metricArrays.Network_rx_dropped.push(values.Network_rx_dropped);
-    metricArrays.Network_rx_errors.push(values.Network_rx_errors);
-    metricArrays.Network_rx_packets.push(values.Network_rx_packets);
+    // metricArrays.Network_rx_dropped.push(values.Network_rx_dropped);
+    // metricArrays.Network_rx_errors.push(values.Network_rx_errors);
+    // metricArrays.Network_rx_packets.push(values.Network_rx_packets);
     metricArrays.Network_tx_bytes.push(values.Network_tx_bytes);
-    metricArrays.Network_tx_dropped.push(values.Network_tx_dropped);
-    metricArrays.Network_tx_errors.push(values.Network_tx_errors);
-    metricArrays.Network_tx_packets.push(values.Network_tx_packets);
+    // metricArrays.Network_tx_dropped.push(values.Network_tx_dropped);
+    // metricArrays.Network_tx_errors.push(values.Network_tx_errors);
+    // metricArrays.Network_tx_packets.push(values.Network_tx_packets);
     metricArrays.Disk_read_value.push(values.Disk_read_value);
     metricArrays.Disk_write_value.push(values.Disk_write_value);
   }
