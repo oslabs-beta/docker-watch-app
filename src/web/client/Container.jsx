@@ -17,11 +17,14 @@ export default function Container({ id, text, setContainerData, intervalRef }) {
   };
 
 
-
+  //a function that clears the current running setInterval that is stored in useRef (see app) and the runs a new set inerval for the newly clicked container
   const callContainers = (id) => {
+    //clears the value at current in useRef
     clearInterval(intervalRef.current);
     console.log(`clear interval ${intervalRef.current}`)
+    //initial call to containerOnClick to get initial metric data
     containerOnClick(id);
+    //subsequent calls to containerOnClick every 5 seconds. This is stored inside of useRef to be cleared when the next container is clicked.
     intervalRef.current = setInterval(() => containerOnClick(id), 5000);
     console.log('new interval', intervalRef.current)
   }

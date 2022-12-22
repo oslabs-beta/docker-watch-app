@@ -6,8 +6,9 @@ import "./app.css";
 function App() {
   const [containerList, updateContainerList] = useState([]);
   const [containerData, setContainerData] = useState({});
+  //contains the current running setInterval calling the function that requests the api for metric data for the last clicked container.
   const intervalRef = useRef(0);
-  //request to server to update the container list on component mount..and after every update???
+  //request to server to update the container list on with objs containing the name and id of each running containers
   useEffect(() => {
     getContainers();
   }, []);
@@ -23,6 +24,7 @@ function App() {
       .catch((err) => console.log(err));
   };
 
+  //loop through containersList and return an array containing container instances
   const containers = containerList.map((container, i) => {
     return (
       <Container
@@ -49,7 +51,6 @@ function App() {
         </div>
       </section>
       <GraphContainer
-        //TODO: pass down CPU DATA and then   set it to be it's data. (may need to make CPU it's own folder)
         containerData={containerData}
         className="Main"
       />

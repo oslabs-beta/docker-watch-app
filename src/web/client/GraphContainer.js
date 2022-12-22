@@ -42,19 +42,8 @@ const formatGraphData = (data) => {
         data: CPU_total_usage,
       },
     ],
-    // options: {
-    //   plugins: {
-    //     legend: {
-    //       title: {
-    //         font: {
-    //           size: 14
-    //         }
-    //       }
-    //     }
-    //   }
-    // }
   };
-
+  //formats for each data chart with their respective metric data/
   const memoryData = {
     labels: times,
     datasets: [
@@ -126,10 +115,12 @@ function GraphContainer({ containerData }) {
   if (!Object.keys(containerData).length) return;
   const graphData = formatGraphData(containerData);
   // convert array of chartJS-ready graph data to BarChart elements
+  console.log('hello')
   const charts = graphData.map((graph, i) => {
     return (
       <div key={i}>
         <div>{date}</div>
+        {/* <LineChart graphData={graph} option={{ title: { display: true, text: "Pizza", position: "top" } }}></LineChart> */}
         <LineChart graphData={graph}></LineChart>
       </div>
     );
