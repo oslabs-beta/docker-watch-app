@@ -1,5 +1,5 @@
 import React from "react";
-import LineChart from "./LineChart.jsx";
+import LineChart from "../components/LineChart.jsx";
 // format graph data for chartjs from container data
 const formatGraphData = (data) => {
   // iterates over metric arrays and returns smaller data subset based on adjustment
