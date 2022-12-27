@@ -4,8 +4,11 @@ import React, { useState, useEffect, useRef } from "react";
 import "../app.css";
 
 function App() {
-  const [containerList, updateContainerList] = useState([]);
-  const [containerData, setContainerData] = useState({});
+  const [containerList, updateContainerList] = useState<Array<{
+    id: string,
+    name: string
+  }>>([]);
+  const [containerData, setContainerData] = useState<object>({});
   //contains the current running setInterval calling the function that requests the api for metric data for the last clicked container.
   const intervalRef = useRef(0);
   const idRef = useRef(0);
@@ -15,6 +18,7 @@ function App() {
   }, []);
 
   const getContainers = () => {
+
     const apiURL = process.env.API_URL || "http://127.0.0.1:8081";
 
     fetch(`${apiURL}/api/v1/containers`)
@@ -26,11 +30,10 @@ function App() {
   };
 
   //loop through containersList and return an array containing container instances
-  const containers = containerList.map((container, i) => {
+  const containers: JSX.Element[] = containerList.map((container:{id:string, name:string}, i:number) => {
     return (
       <Container
         setContainerData={setContainerData}
-        containerData = {containerData}
         key={`container-${i}`}
         id={container.id}
         text={`container-${container.name}`}
