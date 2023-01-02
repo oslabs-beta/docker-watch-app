@@ -17,15 +17,26 @@ const getMetricArrays = (data) => {
     Disk_read_value: [],
     Disk_write_value: [],
   };
+  // save previous timestamp
+  let prevTime;
   // iterate over every entry of object and store in empty arrays
   // eslint-disable-next-line no-restricted-syntax
   for (const [time, values] of Object.entries(data)) {
     // format time in human readable format
     const timestamp = new Date(time).toLocaleString('en-US', { timeZone: 'America/New_York' });
+    if (!prevTime) prevTime = time;
+    const diff = Date.parse(time) - Date.parse(prevTime);
+    console.log(diff);
+    if (diff > 8000) {
+      // metricArrays.ContainerDown.push(0);
+    } else {
+      // metricArrays.ContainerDown.push(NaN);
+    }
+    prevTime = time;
     // day date only
     metricArrays.dates.push(timestamp.slice(0, 10));
     // time only
-    metricArrays.times.push(timestamp.slice(12));
+    metricArrays.times.push(timestamp.slice(9));
     metricArrays.cpu_percentage.push(values.cpu_percentage);
     metricArrays.Memory_memory_usage.push(values.Memory_memory_usage);
     metricArrays.Network_rx_bytes.push(values.Network_rx_bytes);

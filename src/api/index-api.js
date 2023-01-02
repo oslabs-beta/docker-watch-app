@@ -12,12 +12,20 @@ const HOST = '0.0.0.0';
 const app = express();
 app.use(cors());
 
-// send an object with all stats of a specific container id
+// send an object with all stats of a specific container id for the default time range
 app.get('/api/v1/containers/:id/stats/', controller.getContainerStats, (req, res) => {
   res.status(200).json(res.locals.stats);
 });
+// send an object with all stats of a specific container id for a specific timeframe
+app.get('/api/v1/containers/:id/stats/:range/', controller.getContainerStats, (req, res) => {
+  res.status(200).json(res.locals.stats);
+});
 // send an object with specific stats of a specific container id
-app.get('/api/v1/containers/:id/stats/:metric', controller.getContainerStats, (req, res) => {
+app.get('/api/v1/containers/:id/stats/all/:metric', controller.getContainerStats, (req, res) => {
+  res.status(200).json(res.locals.stats);
+});
+// send an object with specific stats of a specific container id for a specified timeframe
+app.get('/api/v1/containers/:id/stats/:range/:metric', controller.getContainerStats, (req, res) => {
   res.status(200).json(res.locals.stats);
 });
 // send an object with all running container ids and names

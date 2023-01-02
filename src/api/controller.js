@@ -3,12 +3,19 @@ require('dotenv').config({ path: '../../.env' });
 
 const { InfluxDB } = require('@influxdata/influxdb-client');
 const getMetricArrays = require('./metricArrays');
-const statCalcs = require('./stat-calcs');
 
 const DB_URL = process.env.DB_URL || 'http://127.0.0.1:8086';
 const DB_API_TOKEN = process.env.DB_INFLUXDB_INIT_ADMIN_TOKEN;
 const DB_ORG = process.env.DB_INFLUXDB_INIT_ORG;
 const DB_BUCKET = process.env.DB_INFLUXDB_INIT_BUCKET;
+
+const cpuPerc = (cpuStats, preCpuStats, systemCpuStats, preSystemCpuStats, onlineCpus) => {
+  const cpuDelta = cpuStats - preCpuStats;
+  const systemDelta = systemCpuStats - preSystemCpuStats;
+  if (cpuDelta > 0 && systemDelta > 0) {
+    return ((cpuDelta / systemDelta) * onlineCpus) * 100;
+  } return 0;
+};
 
 const controller = {};
 
@@ -66,14 +73,18 @@ controller.getContainerStats = (req, res, next) => {
   // destructure id from request
   const { id, metric } = req.params;
 
+  let { range } = req.params;
+
+  // if not range passed in, specify default range
+  if (!range) {
+    range = '1h';
+  }
+
   // connect to the influx db using url and token
   const influxDB = new InfluxDB({ url: DB_URL, token: DB_API_TOKEN });
 
   // specify the org to send query to
   const queryApi = influxDB.getQueryApi(DB_ORG);
-
-  // specify range of time to query db
-  const range = '1h';
 
   // initialize array to collect query data
   const dataObj = {};
@@ -122,10 +133,19 @@ controller.getContainerStats = (req, res, next) => {
       return next(error);
     },
     complete() {
+      // console.log(Object.keys(dataObj).sort()[0]);
+      let mostRecentStats = {};
+      if (Object.keys(dataObj).length === 2) {
+        const keys = Object.keys(dataObj).sort();
+        const mostRecentTime = keys[1];
+        mostRecentStats[mostRecentTime] = dataObj[mostRecentTime];
+      } else {
+        mostRecentStats = dataObj;
+      }
       if (!metric || metric === 'cpu') {
-        const times = Object.keys(dataObj);
+        const times = Object.keys(mostRecentStats);
         times.forEach((time) => {
-          dataObj[time].cpu_percentage = statCalcs.cpuPerc(
+          dataObj[time].cpu_percentage = cpuPerc(
             dataObj[time].CPU_cpu_usage,
             dataObj[time].CPU_precpu_usage,
             dataObj[time].CPU_system_cpu_usage,
@@ -134,7 +154,7 @@ controller.getContainerStats = (req, res, next) => {
           );
         });
       }
-      const formattedDataObj = getMetricArrays(dataObj);
+      const formattedDataObj = getMetricArrays(mostRecentStats);
       res.locals.stats = formattedDataObj;
       return next();
     },
