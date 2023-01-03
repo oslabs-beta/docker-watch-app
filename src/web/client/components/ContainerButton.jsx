@@ -19,7 +19,7 @@ export default function Container({ id, text, setContainerData, intervalRef, idR
   const getUpdatedData = (id) => {
     const apiURL = process.env.API_URL || "http://127.0.0.1:8081";
 
-    fetch(`${apiURL}/api/v1/containers/${id}/stats/8s`)
+    fetch(`${apiURL}/api/v1/containers/${id}/stats/12s`)
       .then((response) => response.json())
       .then((data) => {
         const newContainerData = {};
@@ -30,7 +30,9 @@ export default function Container({ id, text, setContainerData, intervalRef, idR
         prevData.current = newContainerData;
         setContainerData(newContainerData); 
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   //a function that clears the current running setInterval that is stored in useRef (see app) and the runs a new set inerval for the newly clicked container

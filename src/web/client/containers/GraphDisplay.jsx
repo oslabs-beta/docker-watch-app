@@ -32,7 +32,6 @@ const formatGraphData = (data) => {
     // Network_tx_packets,
     Disk_read_value,
     Disk_write_value,
-    ContainerDown,
   } = metrics;
   
   const cpuData = {
@@ -51,10 +50,6 @@ const formatGraphData = (data) => {
       {
         label: "Memory_usage",
         data: Memory_memory_usage,
-      },
-      {
-        label: "Container_is_down",
-        data: ContainerDown
       }
     ],
   };

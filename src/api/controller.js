@@ -125,7 +125,7 @@ controller.getContainerStats = (req, res, next) => {
         dataObj[o._time] = {};
       }
       // TODO: Change display to MB or kB etc
-      // add info on curent row to the object at the associated time key
+      // add info on current row to the object at the associated time key
       dataObj[o._time][`${o._measurement}_${o._field}`] = o._value;
     },
     error(error) {
@@ -134,16 +134,8 @@ controller.getContainerStats = (req, res, next) => {
     },
     complete() {
       // console.log(Object.keys(dataObj).sort()[0]);
-      let mostRecentStats = {};
-      if (Object.keys(dataObj).length === 2) {
-        const keys = Object.keys(dataObj).sort();
-        const mostRecentTime = keys[1];
-        mostRecentStats[mostRecentTime] = dataObj[mostRecentTime];
-      } else {
-        mostRecentStats = dataObj;
-      }
       if (!metric || metric === 'cpu') {
-        const times = Object.keys(mostRecentStats);
+        const times = Object.keys(dataObj);
         times.forEach((time) => {
           dataObj[time].cpu_percentage = cpuPerc(
             dataObj[time].CPU_cpu_usage,
@@ -154,7 +146,7 @@ controller.getContainerStats = (req, res, next) => {
           );
         });
       }
-      const formattedDataObj = getMetricArrays(mostRecentStats);
+      const formattedDataObj = getMetricArrays(dataObj);
       res.locals.stats = formattedDataObj;
       return next();
     },
