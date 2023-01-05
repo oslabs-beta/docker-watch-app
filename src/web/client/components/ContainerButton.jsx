@@ -19,7 +19,7 @@ export default function Container({ id, text, setContainerData, intervalRef, idR
   const getUpdatedData = (id) => {
     const apiURL = process.env.API_URL || "http://127.0.0.1:8081";
 
-    fetch(`${apiURL}/api/v1/containers/${id}/stats/12s`)
+    fetch(`${apiURL}/api/v1/containers/${id}/stats/8s`)
       .then((response) => response.json())
       .then((data) => {
         const newContainerData = {};

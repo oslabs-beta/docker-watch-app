@@ -20,32 +20,14 @@ const getMetricArrays = (data) => {
 
   // save previous timestamp
   let prevTime = 0;
-  let isFirstIteration = true;
   // iterate over every entry of object and store in empty arrays
   // eslint-disable-next-line no-restricted-syntax
   for (const [time, values] of Object.entries(data)) {
-    if (Object.entries(data).length === 1) {
-      console.log('length is 1');
-      const dummyTimeStamp = new Date(time).toLocaleString('en-US', { timeZone: 'America/New_York' });
-      metricArrays.dates.push(dummyTimeStamp.slice(0, 10));
-      metricArrays.cpu_percentage.push(NaN);
-      metricArrays.Memory_memory_usage.push(NaN);
-      metricArrays.Network_rx_bytes.push(NaN);
-      metricArrays.Network_tx_bytes.push(NaN);
-      metricArrays.Disk_read_value.push(NaN);
-      metricArrays.Disk_write_value.push(NaN);
-    } else if (Object.entries(data).length === 2 && isFirstIteration) {
-      console.log('length is 2');
-      isFirstIteration = false;
-      // eslint-disable-next-line no-continue
-      continue;
-    }
     // format time in human readable format
     const timestamp = new Date(time).toLocaleString('en-US', { timeZone: 'America/New_York' });
     if (!prevTime) prevTime = time;
     const diff = Date.parse(time) - Date.parse(prevTime);
     if (diff > 8000) {
-      console.log('diff is high: ', diff);
       const dummyTimeStamp = new Date(time - 5000).toLocaleString('en-US', { timeZone: 'America/New_York' });
       metricArrays.dates.push(dummyTimeStamp.slice(0, 10));
       metricArrays.cpu_percentage.push(NaN);
@@ -55,8 +37,6 @@ const getMetricArrays = (data) => {
       metricArrays.Disk_read_value.push(NaN);
       metricArrays.Disk_write_value.push(NaN);
     } else {
-      console.log('diff is low: ', diff);
-      console.log('data: ', data);
       metricArrays.dates.push(timestamp.slice(0, 10));
       // time only
       metricArrays.times.push(timestamp.slice(9));

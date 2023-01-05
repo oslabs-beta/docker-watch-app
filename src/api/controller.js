@@ -133,20 +133,25 @@ controller.getContainerStats = (req, res, next) => {
       return next(error);
     },
     complete() {
-      // console.log(Object.keys(dataObj).sort()[0]);
+      const updatedDataObj = { ...dataObj };
+      // if this is a live update (and not a large data fetch)
+      // use only the most recent piece of data
+      if (range === '8s' && Object.keys(updatedDataObj).length === 2) {
+        delete updatedDataObj[Object.keys(updatedDataObj).sort()[0]];
+      }
       if (!metric || metric === 'cpu') {
-        const times = Object.keys(dataObj);
+        const times = Object.keys(updatedDataObj);
         times.forEach((time) => {
-          dataObj[time].cpu_percentage = cpuPerc(
-            dataObj[time].CPU_cpu_usage,
-            dataObj[time].CPU_precpu_usage,
-            dataObj[time].CPU_system_cpu_usage,
-            dataObj[time].CPU_system_precpu_usage,
-            dataObj[time].CPU_online_cpus,
+          updatedDataObj[time].cpu_percentage = cpuPerc(
+            updatedDataObj[time].CPU_cpu_usage,
+            updatedDataObj[time].CPU_precpu_usage,
+            updatedDataObj[time].CPU_system_cpu_usage,
+            updatedDataObj[time].CPU_system_precpu_usage,
+            updatedDataObj[time].CPU_online_cpus,
           );
         });
       }
-      const formattedDataObj = getMetricArrays(dataObj);
+      const formattedDataObj = getMetricArrays(updatedDataObj);
       res.locals.stats = formattedDataObj;
       return next();
     },
