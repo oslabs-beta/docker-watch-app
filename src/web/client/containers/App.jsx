@@ -1,7 +1,7 @@
-import Container from "./Container.jsx";
-import GraphContainer from "./GraphContainer";
+import Container from "../components/ContainerButton.jsx";
+import GraphContainer from "./GraphDisplay.jsx";
 import React, { useState, useEffect, useRef } from "react";
-import "./app.css";
+import "../app.css";
 
 function App() {
   const [containerList, updateContainerList] = useState([]);
@@ -9,6 +9,7 @@ function App() {
 
   // contains the current running setInterval calling the function that requests the api for metric data for the last clicked container.
   const intervalRef = useRef(0);
+  const idRef = useRef(0);
 
   // a hook to highlight the selected container 
   const containerRef = useRef('');
@@ -34,10 +35,12 @@ function App() {
     return (
       <Container
         setContainerData={setContainerData}
+        containerData = {containerData}
         key={`container-${i}`}
         id={container.id}
         text={`container-${container.name}`}
         intervalRef={intervalRef}
+        idRef={idRef}
         containerRef={containerRef}
       />
     );
