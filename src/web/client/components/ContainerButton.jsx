@@ -1,7 +1,7 @@
 import React, { useRef } from "react";
 
 
-export default function Container({ id, text, setContainerData, intervalRef, idRef }) {  
+export default function Container({ id, text, setContainerData, intervalRef, idRef, containerRef }) {
   const prevData = useRef({});
   // fetch full container data from server
   const getInitialData = (id) => {
@@ -28,7 +28,7 @@ export default function Container({ id, text, setContainerData, intervalRef, idR
           newContainerData[key] = newData;
         };
         prevData.current = newContainerData;
-        setContainerData(newContainerData); 
+        setContainerData(newContainerData);
       })
       .catch((err) => {
         console.log(err);
@@ -39,6 +39,7 @@ export default function Container({ id, text, setContainerData, intervalRef, idR
   const containerOnClick = (id) => {
     if (id === idRef.current) return;
     idRef.current = id;
+    containerRef.current = id;
     //clears the value at current in useRef
     clearInterval(intervalRef.current);
     //initial call to containerOnClick to get initial metric data
@@ -50,7 +51,8 @@ export default function Container({ id, text, setContainerData, intervalRef, idR
     <>
       <button
         onClick={() => containerOnClick(id)}
-        className="btn btn-outline btn-accent min-w-full"
+        // if button is selected then the text color is white
+        className={containerRef.current === id ? "btn btn-active btn-accent border-white text-white min-w-full" : "btn btn-outline btn-accent min-w-full"}
       >
         {text}
       </button>
