@@ -4,7 +4,7 @@ services:
   sensor1:
     build: ./src/sensors/sensor1
     volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
+      - /var/run/docker.sock:/var/run/docker.sock:ro
     environment:
       - DB_INFLUXDB_INIT_ADMIN_TOKEN=${DB_INFLUXDB_INIT_ADMIN_TOKEN}
       - DB_INFLUXDB_INIT_ORG=${DB_INFLUXDB_INIT_ORG}
