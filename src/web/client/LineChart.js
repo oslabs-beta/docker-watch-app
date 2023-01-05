@@ -24,7 +24,7 @@ function LineChart({ graphData, title }) {
         zoom: {
           wheel: {
             enabled: true,
-            speed: 0.04
+            speed: 0.02
           },
           mode: 'x',
         },
