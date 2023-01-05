@@ -33,14 +33,6 @@
   justify-content: center;
 }
 
-.whale {
-  display: none;
-}
-
-.Container:hover .whale {
-  display: contents;
-}
-
 .container {
   width: 100%;
 }

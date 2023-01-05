@@ -1,7 +1,7 @@
 import React, { useRef, useState, useEffect } from "react";
 
 
-export default function Container({ id, text, setContainerData, intervalRef }) {
+export default function Container({ id, text, setContainerData, intervalRef, containerRef }) {
 
 
   // fetch container data from server
@@ -16,22 +16,27 @@ export default function Container({ id, text, setContainerData, intervalRef }) {
       .catch((err) => console.log(err));
   };
 
-
   //a function that clears the current running setInterval that is stored in useRef (see app) and the runs a new set inerval for the newly clicked container
   const callContainers = (id) => {
+    // handleClick(id);
+    containerRef.current = id;
+
     //clears the value at current in useRef
     clearInterval(intervalRef.current);
+
     //initial call to containerOnClick to get initial metric data
     containerOnClick(id);
+
     //subsequent calls to containerOnClick every 5 seconds. This is stored inside of useRef to be cleared when the next container is clicked.
     intervalRef.current = setInterval(() => containerOnClick(id), 5000);
   }
+
   return (
     <>
       <button
         onClick={() => callContainers(id)}
-        className="btn btn-outline btn-accent min-w-full"
-      >
+        // if button is selected then the text color is white
+        className={containerRef.current === id ? "btn btn-active btn-accent border-white text-white min-w-full" : "btn btn-outline btn-accent min-w-full"}>
         {text}
       </button>
     </>
