@@ -33,14 +33,22 @@
   justify-content: center;
 }
 
-.whale {
-  display: none;
-}
-
-.Container:hover .whale {
-  display: contents;
-}
-
 .container {
   width: 100%;
 }
+
+.chartWrapper {
+  position: relative;
+ }
+ 
+ .chartWrapper > canvas {
+   position: absolute;
+   left: 0;
+   top: 0;
+   pointer-events: none;
+ }
+ 
+ .chartAreaWrapper {
+   width: 600px;
+   overflow-x: scroll;
+ }

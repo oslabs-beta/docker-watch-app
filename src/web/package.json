@@ -21,6 +21,7 @@
     "@tailwindcss/typography": "^0.5.8",
     "axios": "^1.2.1",
     "browser-router": "^0.2.0",
+    "chartjs-plugin-zoom": "^2.0.0",
     "concurrently": "^7.6.0",
     "cors": "^2.8.5",
     "daisy": "^0.2.0",
