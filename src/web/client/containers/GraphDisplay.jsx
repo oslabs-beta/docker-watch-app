@@ -1,5 +1,5 @@
 import React from "react";
-import LineChart from "./LineChart.js";
+import LineChart from "../components/LineChart.jsx";
 // format graph data for chartjs from container data
 const formatGraphData = (data) => {
   // iterates over metric arrays and returns smaller data subset based on adjustment
@@ -33,7 +33,7 @@ const formatGraphData = (data) => {
     Disk_read_value,
     Disk_write_value,
   } = metrics;
-
+  
   const cpuData = {
     labels: times,
     datasets: [
@@ -50,7 +50,7 @@ const formatGraphData = (data) => {
       {
         label: "Memory_usage",
         data: Memory_memory_usage,
-      },
+      }
     ],
   };
 
