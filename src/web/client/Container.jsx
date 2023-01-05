@@ -36,7 +36,6 @@ export default function Container({ id, text, setContainerData, intervalRef, con
       <button
         onClick={() => callContainers(id)}
         // if button is selected then the text color is white
-        // className={containerRef.current === id ? "btn btn-active btn-accent border-white text-white" : "btn btn-outline btn-accent min-w-full"}
         className={containerRef.current === id ? "btn btn-active btn-accent border-white text-white min-w-full" : "btn btn-outline btn-accent min-w-full"}
 
       >
