@@ -11,6 +11,8 @@ services:
       - DB_INFLUXDB_INIT_BUCKET=${DB_INFLUXDB_INIT_BUCKET}
       - DB_URL=http://db:8086
       - SENSORS_SENSOR1_LOOKUP_FREQUENCY=${SENSORS_SENSOR1_LOOKUP_FREQUENCY}
+    depends_on:
+      - db
     command: npm run start
   db:
     image: influxdb:2.4
@@ -33,6 +35,9 @@ services:
       - DB_INFLUXDB_INIT_BUCKET=${DB_INFLUXDB_INIT_BUCKET}
       - DB_INFLUXDB_INIT_ADMIN_TOKEN=${DB_INFLUXDB_INIT_ADMIN_TOKEN}
       - DB_URL=http://db:8086
+    depends_on:
+      - db
+      - sensor1
     command: npm run start
   web:
     build: ./src/web
@@ -41,4 +46,6 @@ services:
     environment:
       # - API_URL=http://api:8081 # TODO explore mapping through Docker network
       - API_URL=http://127.0.0.1:8081
+    depends_on:
+      - api
     command: ["npm", "run", "dev:docker"]
