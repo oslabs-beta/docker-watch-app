@@ -3,7 +3,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const Dotenv = require('dotenv-webpack');
 
 module.exports = {
-  entry: './client/index.js',
+  entry: './client/index.jsx',
   output: {
     path: path.resolve(__dirname, '/dist'),
     filename: 'bundle.js',
@@ -31,10 +31,13 @@ module.exports = {
               importLoaders: 1,
             },
           },
-          'postcss-loader',
+          'postcss-loader'
         ],
-      },
+      }
     ],
+  },
+  resolve: {
+    extensions: ['.js', '.jsx'],
   },
   devServer: {
     static: {
@@ -50,6 +53,6 @@ module.exports = {
     new Dotenv({
       path: '../../.env',
       systemvars: true,
-    }),
+    })
   ],
 };

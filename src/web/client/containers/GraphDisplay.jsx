@@ -1,9 +1,12 @@
-import React from "react";
-import LineChart from "../components/LineChart.jsx";
+import React from 'react';
+// import { v4 as uuidv4 } from 'uuid';
+import LineChart from '../components/LineChart';
+
 // format graph data for chartjs from container data
 const formatGraphData = (data) => {
   // iterates over metric arrays and returns smaller data subset based on adjustment
   const adjustTimeFrame = (metrics, adjustment) => {
+    // eslint-disable-next-line no-restricted-syntax, guard-for-in
     for (const key in metrics) {
       const newArr = [];
       for (let j = metrics[key].length - 1; j >= 0; j -= adjustment) {
@@ -33,22 +36,22 @@ const formatGraphData = (data) => {
     Disk_read_value,
     Disk_write_value,
   } = metrics;
-  
+
   const cpuData = {
     labels: times,
     datasets: [
       {
-        label: "cpu_percentage",
+        label: 'cpu_percentage',
         data: cpu_percentage,
-      },
+      }
     ],
   };
-  //formats for each data chart with their respective metric data/
+  // formats for each data chart with their respective metric data/
   const memoryData = {
     labels: times,
     datasets: [
       {
-        label: "Memory_usage",
+        label: 'Memory_usage',
         data: Memory_memory_usage,
       }
     ],
@@ -58,7 +61,7 @@ const formatGraphData = (data) => {
     labels: times,
     datasets: [
       {
-        label: "Network_input",
+        label: 'Network_input',
         data: Network_rx_bytes,
       },
       // {
@@ -74,9 +77,9 @@ const formatGraphData = (data) => {
       //   data: Network_rx_packets,
       // },
       {
-        label: "Network_output",
+        label: 'Network_output',
         data: Network_tx_bytes,
-      },
+      }
       // {
       //   label: "Network_tx_dropped",
       //   data: Network_tx_dropped,
@@ -96,39 +99,36 @@ const formatGraphData = (data) => {
     labels: times,
     datasets: [
       {
-        label: "Disk_read_value",
+        label: 'Disk_read_value',
         data: Disk_read_value,
       },
       {
-        label: "Disk_write_value",
+        label: 'Disk_write_value',
         data: Disk_write_value,
-      },
+      }
     ],
   };
 
   return [cpuData, memoryData, networkData, diskData];
 };
-const date = new Date().toLocaleDateString();
+// const date = new Date().toLocaleDateString();
 // creates a chart for every graph in graphData
 function GraphContainer({ containerData }) {
   // cancel render if no graph data
-  if (!Object.keys(containerData).length) return;
+  if (!Object.keys(containerData).length) {
+    return <div className='Main inline-grid grid-cols-2 gap-1' />;
+  }
   const graphData = formatGraphData(containerData);
-  const titles = ['CPU', 'Memory', 'Network', 'Disk']
+  const titles = ['CPU', 'Memory', 'Network', 'Disk'];
   // convert array of chartJS-ready graph data to BarChart elements
-  const charts = graphData.map((graph, i) => {
-    return (
-      <div key={i}>
-        {/* <div className="date">{date}</div> */}
-        <LineChart graphData={graph} title={titles[i]}></LineChart>
-      </div>
-    );
-  });
-  return (
-    <>
-      <div className="Main inline-grid grid-cols-2 gap-1">{charts}</div>
-    </>
-  );
+  const charts = graphData.map((graph, i) => (
+    // TODO investigate visual bug when using uuid
+    // eslint-disable-next-line react/no-array-index-key
+    <div key={i}>
+      <LineChart graphData={graph} title={titles[i]} />
+    </div>
+  ));
+  return <div className='Main inline-grid grid-cols-2 gap-1'>{charts}</div>;
 }
 
 export default GraphContainer;

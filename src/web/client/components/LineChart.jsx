@@ -1,9 +1,10 @@
-import React from "react";
+import React from 'react';
 // import { Chart } from "react-chartjs-2";
 // import { Chart as ChartJS } from "chart.js/auto";
-import { Chart } from "chart.js/auto";
-import { Line } from "react-chartjs-2";
-import zoomPlugin from 'chartjs-plugin-zoom'
+import { Chart } from 'chart.js/auto';
+import { Line } from 'react-chartjs-2';
+import zoomPlugin from 'chartjs-plugin-zoom';
+
 Chart.register(zoomPlugin);
 
 function LineChart({ graphData, title }) {
@@ -11,31 +12,31 @@ function LineChart({ graphData, title }) {
     responsive: true,
     plugins: {
       legend: {
-        position: "top"
+        position: 'top',
       },
       title: {
         display: true,
         font: {
-          size: 20
+          size: 20,
         },
-        text: title
+        text: title,
       },
       zoom: {
         zoom: {
           wheel: {
             enabled: true,
-            speed: 0.02
+            speed: 0.02,
           },
           mode: 'x',
         },
         pan: {
           enabled: true,
           mode: 'x',
-        }
-      }
-    }
-  }
-  return <Line className="w-20" data={graphData} options={options} />
+        },
+      },
+    },
+  };
+  return <Line className='w-20' data={graphData} options={options} />;
 }
 
 export default LineChart;
