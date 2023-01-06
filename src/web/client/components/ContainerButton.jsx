@@ -1,13 +1,14 @@
-import React, { useRef } from "react";
+import React, { useRef } from 'react';
 
-
-export default function Container({ id, text, setContainerData, intervalRef, idRef, containerRef }) {
+export default function Container({
+  id, text, setContainerData, intervalRef, idRef, containerRef,
+}) {
   const prevData = useRef({});
   // fetch full container data from server
-  const getInitialData = (id) => {
-    const apiURL = process.env.API_URL || "http://127.0.0.1:8081";
+  const getInitialData = (containerId) => {
+    const apiURL = process.env.API_URL || 'http://127.0.0.1:8081';
 
-    fetch(`${apiURL}/api/v1/containers/${id}/stats`)
+    fetch(`${apiURL}/api/v1/containers/${containerId}/stats`)
       .then((response) => response.json())
       .then((data) => {
         prevData.current = data;
@@ -16,17 +17,18 @@ export default function Container({ id, text, setContainerData, intervalRef, idR
       .catch((err) => console.log(err));
   };
   // fetch partial container data from server
-  const getUpdatedData = (id) => {
-    const apiURL = process.env.API_URL || "http://127.0.0.1:8081";
+  const getUpdatedData = (containerId) => {
+    const apiURL = process.env.API_URL || 'http://127.0.0.1:8081';
 
-    fetch(`${apiURL}/api/v1/containers/${id}/stats/8s`)
+    fetch(`${apiURL}/api/v1/containers/${containerId}/stats/8s`)
       .then((response) => response.json())
       .then((data) => {
         const newContainerData = {};
+        // eslint-disable-next-line no-restricted-syntax
         for (const key of Object.keys(data)) {
           const newData = [...prevData.current[key], ...data[key]];
           newContainerData[key] = newData;
-        };
+        }
         prevData.current = newContainerData;
         setContainerData(newContainerData);
       })
@@ -35,27 +37,28 @@ export default function Container({ id, text, setContainerData, intervalRef, idR
       });
   };
 
-  //a function that clears the current running setInterval that is stored in useRef (see app) and the runs a new set inerval for the newly clicked container
-  const containerOnClick = (id) => {
-    if (id === idRef.current) return;
-    idRef.current = id;
-    containerRef.current = id;
-    //clears the value at current in useRef
+  /* a function that clears the current running setInterval that is stored in
+  useRef (see app) and the runs a new set inerval for the newly clicked container */
+  const containerOnClick = (containerId) => {
+    if (containerId === idRef.current) return;
+    idRef.current = containerId;
+    containerRef.current = containerId;
+    // clears the value at current in useRef
     clearInterval(intervalRef.current);
-    //initial call to containerOnClick to get initial metric data
-    getInitialData(id);
-    //subsequent calls to containerOnClick every 5 seconds. This is stored inside of useRef to be cleared when the next container is clicked.
-    intervalRef.current = setInterval(() => getUpdatedData(id), 5000);
-  }
+    // initial call to containerOnClick to get initial metric data
+    getInitialData(containerId);
+    /* subsequent calls to containerOnClick every 5 seconds.
+    This is stored inside of useRef to be cleared when the next container is clicked. */
+    intervalRef.current = setInterval(() => getUpdatedData(containerId), 5000);
+  };
   return (
-    <>
-      <button
-        onClick={() => containerOnClick(id)}
+    <button
+      type='button'
+      onClick={() => containerOnClick(id)}
         // if button is selected then the text color is white
-        className={containerRef.current === id ? "btn btn-active btn-accent border-white text-white min-w-full" : "btn btn-outline btn-accent min-w-full"}
-      >
-        {text}
-      </button>
-    </>
+      className={containerRef.current === id ? 'btn btn-active btn-accent border-white text-white min-w-full' : 'btn btn-outline btn-accent min-w-full'}
+    >
+      {text}
+    </button>
   );
 }
