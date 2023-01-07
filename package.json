@@ -1,0 +1,23 @@
+{
+  "name": "dockerwatch",
+  "description": "Collect and visualize Docker container metrics over time.",
+  "version": "1.0.0",
+  "main": "index.js",
+  "devDependencies": {
+    "cypress": "^12.3.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/oslabs-beta/docker-watch-app.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/oslabs-beta/docker-watch-app/issues"
+  },
+  "homepage": "https://github.com/oslabs-beta/docker-watch-app#readme"
+}
