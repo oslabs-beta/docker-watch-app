@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { v4 as uuidv4 } from 'uuid';
 import Container from '../components/ContainerButton';
 
 export default function Sidebar({ containerData, setContainerData }) {
@@ -29,11 +28,11 @@ export default function Sidebar({ containerData, setContainerData }) {
     getContainers();
   }, []);
   // iterates through contaierList and returns an array of container buttons to render to sidebar
-  const containers = containerList.map((container, i) => (
+  const containers = containerList.map((container) => (
     <Container
       setContainerData={setContainerData}
       containerData={containerData}
-      key={`container ${i}`}
+      key={`containerButton-${container.id}`}
       id={container.id}
       text={`container-${container.name}`}
       intervalRef={intervalRef}
