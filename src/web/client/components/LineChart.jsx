@@ -10,7 +10,7 @@ Chart.register(zoomPlugin);
 function LineChart({ graphData, title }) {
   const options = {
     responsive: true,
-    maintainAspectRatio: false,
+    // maintainAspectRatio: false,
     plugins: {
       legend: {
         position: 'top',
