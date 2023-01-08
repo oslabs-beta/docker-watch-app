@@ -8,7 +8,7 @@ export default function Container({
   const getInitialData = (containerId) => {
     const apiURL = process.env.API_URL || 'http://127.0.0.1:8081';
 
-    fetch(`${apiURL}/api/v1/containers/${containerId}/stats/${timeFrame.current}`)
+    fetch(`${apiURL}/api/v1/containers/${containerId}/stats/${timeFrame}`)
       .then((response) => response.json())
       .then((data) => {
         prevData.current = data;
@@ -52,10 +52,10 @@ export default function Container({
   };
 
   useEffect(() => {
-    console.log('timeframe inside use effect: ', timeFrame.current);
+    console.log('timeframe inside use effect: ', timeFrame);
     console.log('container id: ', idRef.current);
     containerOnClick(idRef.current, true);
-  }, [timeFrame.current]);
+  }, [timeFrame]);
 
   return (
     <button

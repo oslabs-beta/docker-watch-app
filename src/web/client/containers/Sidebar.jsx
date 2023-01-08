@@ -3,8 +3,8 @@ import Container from '../components/ContainerButton';
 
 export default function Sidebar({ containerData, setContainerData }) {
   const [containerList, updateContainerList] = useState([]);
-  const timeFrame = useRef('1h');
-
+  // const timeFrame = useRef('1h');
+  const [timeFrame, setTimeFrame] = useState('1h');
   /* contains the current running setInterval calling the
   function that requests the api for metric data for the last clicked container. */
   const intervalRef = useRef(0);
@@ -29,9 +29,6 @@ export default function Sidebar({ containerData, setContainerData }) {
     getContainers();
   }, []);
 
-  const setTimeFrame = (e) => {
-    timeFrame.current = e;
-  };
   // iterates through contaierList and returns an array of container buttons to render to sidebar
   const containers = containerList.map((container) => (
     <Container

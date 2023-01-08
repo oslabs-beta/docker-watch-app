@@ -130,9 +130,6 @@ const formatGraphData = (data) => {
 // const date = new Date().toLocaleDateString();
 // creates a chart for every graph in graphData
 function GraphContainer({ containerData, timeFrame }) {
-  // useEffect(() => {
-
-  // }, [timeFrame.current]);
   // cancel render if no graph data
   if (!Object.keys(containerData).length) {
     return <div className='Main inline-grid grid-cols-2 gap-1' />;
