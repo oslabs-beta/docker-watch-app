@@ -1,11 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import Sidebar from './Sidebar';
 import GraphContainer from './GraphDisplay';
 import '../app.css';
 
 function App() {
-  // state thay contains metric data on the currently clicked container
+  // state that contains metric data on the currently clicked container
   const [containerData, setContainerData] = useState({});
+  const timeFrame = useRef('5s');
 
   return (
     <div className='App bg-slate-800'>
@@ -15,9 +16,11 @@ function App() {
       <Sidebar
         containerData={containerData}
         setContainerData={setContainerData}
+        timeFrame={timeFrame}
       />
       <GraphContainer
         containerData={containerData}
+        timeFrame={timeFrame}
         className='Main'
       />
     </div>

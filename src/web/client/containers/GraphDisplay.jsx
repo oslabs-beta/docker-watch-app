@@ -3,7 +3,7 @@ import React from 'react';
 import LineChart from '../components/LineChart';
 
 // format graph data for chartjs from container data
-const formatGraphData = (data) => {
+const formatGraphData = (data, timeFrame) => {
   // iterates over metric arrays and returns smaller data subset based on adjustment
   const adjustTimeFrame = (metrics, adjustment) => {
     // eslint-disable-next-line no-restricted-syntax, guard-for-in
@@ -18,7 +18,16 @@ const formatGraphData = (data) => {
   };
   // let adjustmentFactor = 1
   // if (data.times.length / adjustmentFactor > 20) adjustmentFactor += 1
-  const metrics = adjustTimeFrame(data, 1);
+  const timeFrames = {
+    '5s': 1,
+    '30s': 6,
+    '1m': 12,
+    '5m': 60,
+    '30m': 360,
+    '1h': 720
+  }
+  const adjustmentFactor = timeFrames[timeFrame];
+  const metrics = adjustTimeFrame(data, adjustmentFactor);
   // return metrics;
   const {
     dates,
@@ -113,12 +122,12 @@ const formatGraphData = (data) => {
 };
 // const date = new Date().toLocaleDateString();
 // creates a chart for every graph in graphData
-function GraphContainer({ containerData }) {
+function GraphContainer({ containerData, timeFrame }) {
   // cancel render if no graph data
   if (!Object.keys(containerData).length) {
     return <div className='Main inline-grid grid-cols-2 gap-1' />;
   }
-  const graphData = formatGraphData(containerData);
+  const graphData = formatGraphData(containerData, timeFrame);
   const titles = ['CPU', 'Memory', 'Network', 'Disk'];
   // convert array of chartJS-ready graph data to BarChart elements
   const charts = graphData.map((graph, i) => (
