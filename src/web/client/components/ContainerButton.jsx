@@ -52,8 +52,6 @@ export default function Container({
   };
 
   useEffect(() => {
-    console.log('timeframe inside use effect: ', timeFrame);
-    console.log('container id: ', idRef.current);
     containerOnClick(idRef.current, true);
   }, [timeFrame]);
 
