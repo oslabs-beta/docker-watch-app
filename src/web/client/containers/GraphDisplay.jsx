@@ -1,33 +1,40 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 // import { v4 as uuidv4 } from 'uuid';
 import LineChart from '../components/LineChart';
-
 // format graph data for chartjs from container data
-const formatGraphData = (data, timeFrame) => {
+const formatGraphData = (data) => {
   // iterates over metric arrays and returns smaller data subset based on adjustment
-  const adjustTimeFrame = (metrics, adjustment) => {
-    // eslint-disable-next-line no-restricted-syntax, guard-for-in
-    for (const key in metrics) {
-      const newArr = [];
-      for (let j = metrics[key].length - 1; j >= 0; j -= adjustment) {
-        newArr.push(metrics[key][j]);
-      }
-      metrics[key] = newArr;
-    }
-    return metrics;
-  };
+  // const adjustTimeFrame = (metrics, adjustment) => {
+  //   const metricsCopy = { ...metrics };
+  //   // eslint-disable-next-line no-restricted-syntax, guard-for-in
+  //   for (const key in metricsCopy) {
+  //     // const newArr = [];
+  //     // for (let j = metricsCopy[key].length - 1; j >= 0; j -= adjustment) {
+  //     //   newArr.push(metricsCopy[key][j]);
+  //     // }
+  //     // metricsCopy[key] = newArr;
+  //     console.log(metricsCopy);
+  //     const newArr = [];
+  //     for (let j = 0; j > metricsCopy[key].length; j += adjustment) {
+  //       newArr.push(metricsCopy[key][j]);
+  //     }
+  //     metricsCopy[key] = newArr;
+  //   }
+  //   return metricsCopy;
+  // };
   // let adjustmentFactor = 1
   // if (data.times.length / adjustmentFactor > 20) adjustmentFactor += 1
-  const timeFrames = {
-    '5s': 1,
-    '30s': 6,
-    '1m': 12,
-    '5m': 60,
-    '30m': 360,
-    '1h': 720
-  }
-  const adjustmentFactor = timeFrames[timeFrame];
-  const metrics = adjustTimeFrame(data, adjustmentFactor);
+  // const timeFrames = {
+  //   '5 seconds': 1,
+  //   '30 seconds': 6,
+  //   '1 minute': 12,
+  //   '5 minutes': 60,
+  //   '30 minutes': 360,
+  //   '1 hour': 720,
+  // };
+  // console.log('timeframe inside graph display', timeFrame.current);
+  // const adjustmentFactor = timeFrames[timeFrame.current];
+  // const metrics = adjustTimeFrame(data, 1);
   // return metrics;
   const {
     dates,
@@ -44,7 +51,7 @@ const formatGraphData = (data, timeFrame) => {
     // Network_tx_packets,
     Disk_read_value,
     Disk_write_value,
-  } = metrics;
+  } = data;
 
   const cpuData = {
     labels: times,
@@ -123,6 +130,9 @@ const formatGraphData = (data, timeFrame) => {
 // const date = new Date().toLocaleDateString();
 // creates a chart for every graph in graphData
 function GraphContainer({ containerData, timeFrame }) {
+  // useEffect(() => {
+
+  // }, [timeFrame.current]);
   // cancel render if no graph data
   if (!Object.keys(containerData).length) {
     return <div className='Main inline-grid grid-cols-2 gap-1' />;
