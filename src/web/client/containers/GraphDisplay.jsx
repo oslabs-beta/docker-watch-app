@@ -144,7 +144,7 @@ function GraphContainer({ containerData, timeFrame }) {
       <LineChart graphData={graph} title={titles[i]} />
     </div>
   ));
-  return <div className='Main inline-grid grid-cols-2 gap-1'>{charts}</div>;
+  return <div className='Main inline-grid grid-cols-2'>{charts}</div>;
 }
 
 export default GraphContainer;

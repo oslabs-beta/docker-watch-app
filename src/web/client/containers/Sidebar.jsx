@@ -30,7 +30,7 @@ export default function Sidebar({ containerData, setContainerData }) {
   }, []);
 
   // iterates through contaierList and returns an array of container buttons to render to sidebar
-  const containers = containerList.map((container) => (
+  const containerButtons = containerList.map((container) => (
     <Container
       setContainerData={setContainerData}
       containerData={containerData}
@@ -47,7 +47,7 @@ export default function Sidebar({ containerData, setContainerData }) {
     <section className='Sidebar bg-slate-900'>
       <div className='pt-2'>
         <div className='dropdown dropdown-right min-w-full block'>
-          <label tabIndex={0} className='btn m-1'>Change time frame</label>
+          <label tabIndex={0} className='btn m-1 min-w-full'>Click to change time frame</label>
           <ul tabIndex={0} className='dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52'>
             <li onClick={(e) => setTimeFrame('1m')}><a>1 minute</a></li>
             <li onClick={(e) => setTimeFrame('5m')}><a>5 minutes</a></li>
@@ -59,7 +59,7 @@ export default function Sidebar({ containerData, setContainerData }) {
             <li onClick={(e) => setTimeFrame('7d')}><a>7 days</a></li>
           </ul>
         </div>
-        {containers}
+        {containerButtons}
       </div>
     </section>
   );
