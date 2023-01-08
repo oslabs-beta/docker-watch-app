@@ -10,6 +10,7 @@ Chart.register(zoomPlugin);
 function LineChart({ graphData, title }) {
   const options = {
     responsive: true,
+    maintainAspectRatio: false,
     plugins: {
       legend: {
         position: 'top',
@@ -36,7 +37,7 @@ function LineChart({ graphData, title }) {
       },
     },
   };
-  return <Line className='w-20' data={graphData} options={options} />;
+  return <Line className='w-full h-full px-2.5' data={graphData} options={options} />;
 }
 
 export default LineChart;
