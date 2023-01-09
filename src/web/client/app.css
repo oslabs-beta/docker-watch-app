@@ -18,6 +18,9 @@
   grid-area: Header;
   display: flex;
   align-items: center;
+  /* background-color: #2d5ca7; */
+  background-color: #2b7bd4;
+  box-shadow: #205da2;
   /* justify-content: center; */
 }
 
