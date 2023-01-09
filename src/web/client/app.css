@@ -5,7 +5,7 @@
 .App {
   display: grid;
   grid-template-columns: 0.3fr 1.7fr;
-  grid-template-rows: 0.2fr 1.8fr;
+  grid-template-rows: 0.1fr 1.9fr;
   gap: 0px 0px;
   grid-template-areas:
     "Header Header"

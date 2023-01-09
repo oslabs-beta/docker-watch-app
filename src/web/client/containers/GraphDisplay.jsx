@@ -1,24 +1,40 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 // import { v4 as uuidv4 } from 'uuid';
 import LineChart from '../components/LineChart';
-
 // format graph data for chartjs from container data
 const formatGraphData = (data) => {
   // iterates over metric arrays and returns smaller data subset based on adjustment
-  const adjustTimeFrame = (metrics, adjustment) => {
-    // eslint-disable-next-line no-restricted-syntax, guard-for-in
-    for (const key in metrics) {
-      const newArr = [];
-      for (let j = metrics[key].length - 1; j >= 0; j -= adjustment) {
-        newArr.push(metrics[key][j]);
-      }
-      metrics[key] = newArr;
-    }
-    return metrics;
-  };
+  // const adjustTimeFrame = (metrics, adjustment) => {
+  //   const metricsCopy = { ...metrics };
+  //   // eslint-disable-next-line no-restricted-syntax, guard-for-in
+  //   for (const key in metricsCopy) {
+  //     // const newArr = [];
+  //     // for (let j = metricsCopy[key].length - 1; j >= 0; j -= adjustment) {
+  //     //   newArr.push(metricsCopy[key][j]);
+  //     // }
+  //     // metricsCopy[key] = newArr;
+  //     console.log(metricsCopy);
+  //     const newArr = [];
+  //     for (let j = 0; j > metricsCopy[key].length; j += adjustment) {
+  //       newArr.push(metricsCopy[key][j]);
+  //     }
+  //     metricsCopy[key] = newArr;
+  //   }
+  //   return metricsCopy;
+  // };
   // let adjustmentFactor = 1
   // if (data.times.length / adjustmentFactor > 20) adjustmentFactor += 1
-  const metrics = adjustTimeFrame(data, 1);
+  // const timeFrames = {
+  //   '5 seconds': 1,
+  //   '30 seconds': 6,
+  //   '1 minute': 12,
+  //   '5 minutes': 60,
+  //   '30 minutes': 360,
+  //   '1 hour': 720,
+  // };
+  // console.log('timeframe inside graph display', timeFrame.current);
+  // const adjustmentFactor = timeFrames[timeFrame.current];
+  // const metrics = adjustTimeFrame(data, 1);
   // return metrics;
   const {
     dates,
@@ -35,7 +51,7 @@ const formatGraphData = (data) => {
     // Network_tx_packets,
     Disk_read_value,
     Disk_write_value,
-  } = metrics;
+  } = data;
 
   const cpuData = {
     labels: times,
@@ -113,12 +129,12 @@ const formatGraphData = (data) => {
 };
 // const date = new Date().toLocaleDateString();
 // creates a chart for every graph in graphData
-function GraphContainer({ containerData }) {
+function GraphContainer({ containerData, timeFrame }) {
   // cancel render if no graph data
   if (!Object.keys(containerData).length) {
     return <div className='Main inline-grid grid-cols-2 gap-1' />;
   }
-  const graphData = formatGraphData(containerData);
+  const graphData = formatGraphData(containerData, timeFrame);
   const titles = ['CPU', 'Memory', 'Network', 'Disk'];
   // convert array of chartJS-ready graph data to BarChart elements
   const charts = graphData.map((graph, i) => (
@@ -128,7 +144,7 @@ function GraphContainer({ containerData }) {
       <LineChart graphData={graph} title={titles[i]} />
     </div>
   ));
-  return <div className='Main inline-grid grid-cols-2 gap-1'>{charts}</div>;
+  return <div className='Main inline-grid grid-cols-2'>{charts}</div>;
 }
 
 export default GraphContainer;
