@@ -1,0 +1,51 @@
+version: '3.9'
+
+services:
+  sensor1:
+    build: ./src/sensors/sensor1
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    environment:
+      - DB_INFLUXDB_INIT_ADMIN_TOKEN=dockerwatch
+      - DB_INFLUXDB_INIT_ORG=dockerwatch
+      - DB_INFLUXDB_INIT_BUCKET=dockerwatch
+      - DB_URL=http://db:8086
+      - SENSORS_SENSOR1_LOOKUP_FREQUENCY=5000
+    depends_on:
+      - db
+    command: npm run start
+  db:
+    image: influxdb:2.4
+    ports:
+      - '8086:8086' # TODO might not expose port in non-dev builds
+    environment:
+      - DOCKER_INFLUXDB_INIT_MODE=setup
+      - DOCKER_INFLUXDB_INIT_USERNAME=dockerwatch
+      - DOCKER_INFLUXDB_INIT_PASSWORD=dockerwatch
+      - DOCKER_INFLUXDB_INIT_ORG=dockerwatch
+      - DOCKER_INFLUXDB_INIT_BUCKET=dockerwatch
+      - DOCKER_INFLUXDB_INIT_RETENTION=1w
+      - DOCKER_INFLUXDB_INIT_ADMIN_TOKEN=dockerwatch
+  api:
+    build: ./src/api
+    ports:
+      - '8081:8081' # TODO might not expose port in non-dev builds
+    environment:
+      - DB_INFLUXDB_INIT_ORG=dockerwatch
+      - DB_INFLUXDB_INIT_BUCKET=dockerwatch
+      - DB_INFLUXDB_INIT_ADMIN_TOKEN=dockerwatch
+      - DB_URL=http://db:8086
+    depends_on:
+      - db
+      - sensor1
+    command: npm run start
+  web:
+    build: ./src/web
+    ports:
+      - '8080:8080'
+    environment:
+      # - API_URL=http://api:8081 # TODO explore mapping through Docker network
+      - API_URL=http://127.0.0.1:8081
+    depends_on:
+      - api
+    command: ["npm", "start"]
