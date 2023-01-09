@@ -13,7 +13,7 @@ services:
       - SENSORS_SENSOR1_LOOKUP_FREQUENCY=5000
     depends_on:
       - db
-    command: npm run start
+    command: ["npm", "run", "start"]
   db:
     image: influxdb:2.4
     ports:
@@ -38,7 +38,7 @@ services:
     depends_on:
       - db
       - sensor1
-    command: npm run start
+    command: ["npm", "run", "start"]
   web:
     build: ./src/web
     ports:
@@ -48,4 +48,4 @@ services:
       - API_URL=http://127.0.0.1:8081
     depends_on:
       - api
-    command: ["npm", "start"]
+    command: ["npm", "run", "dev:docker"]
