@@ -62,7 +62,7 @@ export default function Sidebar({ containerData, setContainerData }) {
     />
   ));
   return (
-    <section className='Sidebar bg-slate-900'>
+    <aside className='Sidebar bg-slate-900'>
       <div className='pt-2'>
         <div className='dropdown dropdown-hover min-w-full block'>
           <label tabIndex={0} className='btn mb-1 min-w-full border-white'>
@@ -83,8 +83,10 @@ export default function Sidebar({ containerData, setContainerData }) {
             <li onClick={() => timeRangeClicked('7d')}><a>Past 7 days</a></li>
           </ul>
         </div>
-        {containerButtons}
+        <div className='overflow-y-scroll sticky top-0 sideScroll'>
+          {containerButtons}
+        </div>
       </div>
-    </section>
+    </aside>
   );
 }
