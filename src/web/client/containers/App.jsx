@@ -2,7 +2,6 @@ import React, { useState, useRef } from 'react';
 import Sidebar from './Sidebar';
 import GraphContainer from './GraphDisplay';
 import '../app.css';
-// import icon from '../images/icon-no-logo.svg';
 
 function App() {
   // state that contains metric data on the currently clicked container

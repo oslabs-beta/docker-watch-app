@@ -60,7 +60,7 @@ export default function Container({
       type='button'
       onClick={() => containerOnClick(id)}
         // if button is selected then the text color is white
-      className={containerRef.current === id ? 'btn btn-active bg-l-blue border-white mb-1 text-white min-w-full' : 'btn btn-outline border-slate-300 text-slate-300 mb-1 min-w-full'}
+      className={containerRef.current === id ? 'btn btn-active bg-m-blue border-white mb-1 text-white min-w-full' : 'btn btn-outline border-l-blue text-l-blue mb-1 min-w-full'}
     >
       {text}
     </button>
