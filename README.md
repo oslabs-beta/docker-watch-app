@@ -1,14 +1,19 @@
-# Docker Watch
-
-A containerized application that collects and visualizes other Docker container metrics over time.
+<img align="center" src="https://i.imgur.com/byVZBN4.png">
+<img src ="https://img.shields.io/github/repo-size/oslabs-beta/docker-watch-app">
+A containerized application that collects and visualizes Docker container metrics over time.
 
 # Table of Contents
 
-[link](#Deployment)
+- [Installation](#installation) 
+- [How to Use](#how-to-use) 
+- [How it Works](#how-it-works) 
+- [Contributing](#contributing)
+- [Authors](#Installation)
+- [Installation](#Installation)
 
-# Installation
+## Installation 
 
-## Getting Started
+### Getting Started
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
 
@@ -16,7 +21,7 @@ These instructions will get you a copy of the project up and running on your loc
 
 - Download [Docker Desktop](https://www.docker.com/products/docker-desktop/)
 
-### Installing <a name="Installing"></a>
+### Installation 
 
 Run the following code in your terminal to get started:
 
@@ -24,37 +29,15 @@ Run the following code in your terminal to get started:
 url https://raw.githubusercontent.com/oslabs-beta/docker-watch-app/main/install.yaml | docker-compose -f - up -d
 ```
 
-End with an example of getting some data out of the system or using it for a little demo
-
-## Running the tests
+## How to Use
 
 Explain how to run the automated tests for this system
 
-### Break down into end to end tests
-
-Explain what these tests test and why
-
 ```
 Give an example
 ```
 
-### And coding style tests
-
-Explain what these tests test and why
-
-```
-Give an example
-```
-
-## Deployment <a name="Deployment"></a>
-
-Add additional notes about how to deploy this on a live system
-
-## Built With
-
-* [Dropwizard](http://www.dropwizard.io/1.0.2/docs/) - The web framework used
-* [Maven](https://maven.apache.org/) - Dependency Management
-* [ROME](https://rometools.github.io/rome/) - Used to generate RSS Feeds
+## How It Works
 
 ## Contributing
 
