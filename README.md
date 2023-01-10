@@ -1,5 +1,5 @@
 <div align="center">
-  <a href="http://docker.watch" target="_blank" rel="noreferrer noopener"><img align="center" src="https://i.imgur.com/byVZBN4.png"></a>
+  <a target="_blank" href="http://docker.watch"><img align="center" src="https://i.imgur.com/byVZBN4.png"></a>
 </div>
 
 <p align="center">
