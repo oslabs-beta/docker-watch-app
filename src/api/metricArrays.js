@@ -39,7 +39,7 @@ const getMetricArrays = (data) => {
     } else {
       metricArrays.dates.push(timestamp.slice(0, 10));
       // time only
-      metricArrays.times.push(timestamp.slice(9));
+      metricArrays.times.push(timestamp.slice(11));
       metricArrays.cpu_percentage.push(values.cpu_percentage);
       metricArrays.Memory_memory_usage.push(values.Memory_memory_usage);
       metricArrays.Network_rx_bytes.push(values.Network_rx_bytes);
