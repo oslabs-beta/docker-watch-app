@@ -5,7 +5,7 @@ export default function Sidebar({ containerData, setContainerData }) {
   const [containerList, updateContainerList] = useState([]);
   // const timeFrame = useRef('1h');
   const [timeFrame, setTimeFrame] = useState('1h');
-  const [timeDisplay, setTimeDisplay] = useState('time range');
+  const [timeDisplay, setTimeDisplay] = useState('Past 1 hour');
   /* contains the current running setInterval calling the
   function that requests the api for metric data for the last clicked container. */
   const intervalRef = useRef(0);
@@ -69,8 +69,6 @@ export default function Sidebar({ containerData, setContainerData }) {
             🕐 &nbsp;
             {' '}
             {timeDisplay}
-            {' '}
-&nbsp;&nbsp;&nbsp; ↓
           </label>
           <ul tabIndex={0} className='dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52'>
             <li onClick={() => timeRangeClicked('1m')}><a>Past 1 minute</a></li>
