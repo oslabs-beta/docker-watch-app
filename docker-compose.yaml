@@ -1,0 +1,51 @@
+version: '3.9'
+
+services:
+  sensor1:
+    build: ./src/sensors/sensor1
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    environment:
+      - DB_INFLUXDB_INIT_ADMIN_TOKEN=${DB_INFLUXDB_INIT_ADMIN_TOKEN}
+      - DB_INFLUXDB_INIT_ORG=${DB_INFLUXDB_INIT_ORG}
+      - DB_INFLUXDB_INIT_BUCKET=${DB_INFLUXDB_INIT_BUCKET}
+      - DB_URL=http://db:8086
+      - SENSORS_SENSOR1_LOOKUP_FREQUENCY=${SENSORS_SENSOR1_LOOKUP_FREQUENCY}
+    depends_on:
+      - db
+    command: ["npm", "run", "start"]
+  db:
+    image: influxdb:2.4
+    ports:
+      - '8086:8086' # TODO might not expose port in non-dev builds
+    environment:
+      - DOCKER_INFLUXDB_INIT_MODE=${DB_INFLUXDB_INIT_MODE}
+      - DOCKER_INFLUXDB_INIT_USERNAME=${DB_INFLUXDB_INIT_USERNAME}
+      - DOCKER_INFLUXDB_INIT_PASSWORD=${DB_INFLUXDB_INIT_PASSWORD}
+      - DOCKER_INFLUXDB_INIT_ORG=${DB_INFLUXDB_INIT_ORG}
+      - DOCKER_INFLUXDB_INIT_BUCKET=${DB_INFLUXDB_INIT_BUCKET}
+      - DOCKER_INFLUXDB_INIT_RETENTION=${DB_INFLUXDB_INIT_RETENTION}
+      - DOCKER_INFLUXDB_INIT_ADMIN_TOKEN=${DB_INFLUXDB_INIT_ADMIN_TOKEN}
+  api:
+    build: ./src/api
+    ports:
+      - '8081:8081' # TODO might not expose port in non-dev builds
+    environment:
+      - DB_INFLUXDB_INIT_ORG=${DB_INFLUXDB_INIT_ORG}
+      - DB_INFLUXDB_INIT_BUCKET=${DB_INFLUXDB_INIT_BUCKET}
+      - DB_INFLUXDB_INIT_ADMIN_TOKEN=${DB_INFLUXDB_INIT_ADMIN_TOKEN}
+      - DB_URL=http://db:8086
+    depends_on:
+      - db
+      - sensor1
+    command: ["npm", "run", "start"]
+  web:
+    build: ./src/web
+    ports:
+      - '8080:8080'
+    environment:
+      # - API_URL=http://api:8081 # TODO explore mapping through Docker network
+      - API_URL=http://127.0.0.1:8081
+    depends_on:
+      - api
+    command: ["npm", "run", "dev:docker"]
