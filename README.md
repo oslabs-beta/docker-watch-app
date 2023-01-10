@@ -1,5 +1,12 @@
-<img align="center" src="https://i.imgur.com/byVZBN4.png">
-<img src ="https://img.shields.io/github/repo-size/oslabs-beta/docker-watch-app">
+<div align="center">
+  <a href="http://docker.watch" target="_blank" rel="noreferrer noopener"><img align="center" src="https://i.imgur.com/byVZBN4.png"></a>
+</div>
+
+<p align="center">
+  <img src ="https://img.shields.io/bower/l/bootstrap">
+  <img src ="https://img.shields.io/github/repo-size/oslabs-beta/docker-watch-app">
+</p>
+
 A containerized application that collects and visualizes Docker container metrics over time.
 
 # Table of Contents
