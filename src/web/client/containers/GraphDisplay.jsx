@@ -59,6 +59,7 @@ const formatGraphData = (data) => {
       {
         label: 'cpu_percentage',
         data: cpu_percentage,
+        borderColor: '#3b76b7',
       }
     ],
   };
@@ -69,6 +70,7 @@ const formatGraphData = (data) => {
       {
         label: 'Memory_usage',
         data: Memory_memory_usage,
+        borderColor: '#3b76b7',
       }
     ],
   };
@@ -79,6 +81,7 @@ const formatGraphData = (data) => {
       {
         label: 'Network_input',
         data: Network_rx_bytes,
+        borderColor: '#3b76b7',
       },
       // {
       //   label: "Network_rx_dropped",
@@ -95,6 +98,7 @@ const formatGraphData = (data) => {
       {
         label: 'Network_output',
         data: Network_tx_bytes,
+        borderColor: '#95B9E5',
       }
       // {
       //   label: "Network_tx_dropped",
@@ -117,10 +121,12 @@ const formatGraphData = (data) => {
       {
         label: 'Disk_read_value',
         data: Disk_read_value,
+        borderColor: '#3b76b7',
       },
       {
         label: 'Disk_write_value',
         data: Disk_write_value,
+        borderColor: '#95B9E5',
       }
     ],
   };
