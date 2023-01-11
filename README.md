@@ -28,7 +28,7 @@ DockerWatch is a containerized application that collects and visualizes Docker c
 
 - Download [Docker Desktop](https://www.docker.com/products/docker-desktop/)
 
-### Installation 
+### Setup
 
 Run the following code in your terminal:
 
