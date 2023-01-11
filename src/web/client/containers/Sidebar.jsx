@@ -36,6 +36,7 @@ export default function Sidebar({ containerData, setContainerData }) {
     const times = {
       '1m': 'Past 1 minute',
       '5m': 'Past 5 minutes',
+      '15m': 'Past 15 minutes',
       '1h': 'Past 1 hour',
       '3h': 'Past 3 hours',
       '6h': 'Past 6 hours',
@@ -73,6 +74,7 @@ export default function Sidebar({ containerData, setContainerData }) {
           <ul tabIndex={0} className='dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52'>
             <li onClick={() => timeRangeClicked('1m')}><a>Past 1 minute</a></li>
             <li onClick={() => timeRangeClicked('5m')}><a>Past 5 minutes</a></li>
+            <li onClick={() => timeRangeClicked('15m')}><a>Past 15 minutes</a></li>
             <li onClick={() => timeRangeClicked('1h')}><a>Past 1 hour</a></li>
             <li onClick={() => timeRangeClicked('3h')}><a>Past 3 hours</a></li>
             <li onClick={() => timeRangeClicked('6h')}><a>Past 6 hours</a></li>
