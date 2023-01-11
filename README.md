@@ -33,22 +33,17 @@ DockerWatch is a containerized application that collects and visualizes Docker c
 Run the following code in your terminal from the top level directory:
 
 ```
-curl https://raw.githubusercontent.com/oslabs-beta/docker-watch-app/main/install.yaml | docker-compose -f - up -d
+curl https://raw.githubusercontent.com/oslabs-beta/docker-watch-app/main/install.yaml -p dockerwatch | docker-compose -f - up -d
 ```
 
 ## How to Use
 
-1. Go into Docker Desktop and expand the DockerWatch container. It holds four containers that make up the application.
-<img src ="https://i.imgur.com/6CtjGOy.png">
-<img src ="https://i.imgur.com/zSzti8B.png">
+1. After installing, open your web brower and visit [http://localhost:8855](http://http://localhost:8855)
 
-2. Under the web container, click on the 8080:8080 button or navigate directly to localhost:8080 in your browser.
-<img src ="https://i.imgur.com/wG4MJ1N.png">
-
-3. To view a container, click one on the left-hand side to view monitored metrics, including CPU, Memory, Network, and Disk.
+2. To view a container, click one on the left-hand side to view monitored metrics, including CPU, Memory, Network, and Disk.
 <img src ="https://i.imgur.com/CJSiiIF.png">
 
-4. View smaller or larger timeframes of data by clicking the Change Timeframe button and selecting a range of time to view. One hour will view all data from the last hour, one day will view all data from the last day, etc.
+3. View smaller or larger timeframes of data by clicking the Change Timeframe button and selecting a range of time to view. One hour will view all data from the last hour, one day will view all data from the last day, etc.
 <img src ="https://i.imgur.com/ULbHZMM.png">
 
 ## How It Works
@@ -65,4 +60,4 @@ The DockerWatch container holds four smaller containers: a web container, an api
 
 ## License
 
-This project is licensed under the [MIT License](LICENSE.md) 
+This project is licensed under the [MIT License](LICENSE) 
