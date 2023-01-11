@@ -30,10 +30,10 @@ DockerWatch is a containerized application that collects and visualizes Docker c
 
 ### Setup
 
-Run the following code in your terminal:
+Run the following code in your terminal from the top level directory:
 
 ```
-url https://raw.githubusercontent.com/oslabs-beta/docker-watch-app/main/install.yaml | docker-compose -f - up -d
+curl https://raw.githubusercontent.com/oslabs-beta/docker-watch-app/main/install.yaml | docker-compose -f - up -d
 ```
 
 ## How to Use
