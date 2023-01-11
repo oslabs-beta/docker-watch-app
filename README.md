@@ -38,11 +38,11 @@ url https://raw.githubusercontent.com/oslabs-beta/docker-watch-app/main/install.
 
 ## How to Use
 
-1. Go into Docker Desktop and expand the DockerWatch container. It contains four containers pertinent to the application.
+1. Go into Docker Desktop and expand the DockerWatch container. It holds four containers that make up the application.
 <img src ="https://i.imgur.com/6CtjGOy.png">
 <img src ="https://i.imgur.com/zSzti8B.png">
 
-2. Under the web container, click on the 8080:8080 button to open localhost:8080 in your browser.
+2. Under the web container, click on the 8080:8080 button or navigate directly to localhost:8080 in your browser.
 <img src ="https://i.imgur.com/wG4MJ1N.png">
 
 3. To view a container, click one on the left-hand side to view monitored metrics, including CPU, Memory, Network, and Disk.
@@ -53,17 +53,15 @@ url https://raw.githubusercontent.com/oslabs-beta/docker-watch-app/main/install.
 
 ## How It Works
 
-The DockerWatch container holds four smaller containers: a web container, an api container, an InfluxDB database container, and a sensor container. The sensor collects data from the containers in Docker Desktop and stores it in the database. The API container queries for data from the database upon request from the web container. The CPU, Memory, Network, and Disk metrics for all containers in Docker Desktop, including DockerWatch, are monitored for as long as the DockerWatch container is running.
+The DockerWatch container holds four smaller containers: a web container, an api container, an InfluxDB database container, and a sensor container. The sensor collects data the Docker daemon and stores it in the database. The API container queries for data from the database upon request from the web container. The CPU, Memory, Network, and Disk metrics for all containers in Docker Desktop, including DockerWatch, are monitored for as long as the DockerWatch container is running.
 
 ## Authors
 
-Brynn Sakell [@BrynnSakell](https://github.com/BrynnSakell) | [LinkedIn]("www.linkedin.com/in/brynnsakell")
-Dan Pietsch [@dpietsch14](https://github.com/dpietsch14) | [LinkedIn]("https://www.linkedin.com/in/danielpietsch14/")
-Nadia Abowitz [@abowitzn](https://github.com/abowitzn) | [LinkedIn]("https://www.linkedin.com/in/nadia-abowitz/")
-Rob Mosher [@rob-mosher](https://github.com/rob-mosher) | [LinkedIn]("https://www.linkedin.com/in/rob-mosher-it/")
-Stephen Rivas [@stephenpharmd](https://github.com/stephenpharmd) | [LinkedIn]("https://www.linkedin.com/in/stephenpharmd/")
-
-See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
+- Brynn Sakell [@BrynnSakell](https://github.com/BrynnSakell) | [LinkedIn](https://linkedin.com/in/brynnsakell)
+- Dan Pietsch [@dpietsch14](https://github.com/dpietsch14) | [LinkedIn](https://linkedin.com/in/danielpietsch14/)
+- Nadia Abowitz [@abowitzn](https://github.com/abowitzn) | [LinkedIn](https://linkedin.com/in/nadia-abowitz/)
+- Rob Mosher [@rob-mosher](https://github.com/rob-mosher) | [LinkedIn](https://linkedin.com/in/rob-mosher-it/)
+- Stephen Rivas [@stephenpharmd](https://github.com/stephenpharmd) | [LinkedIn](https://linkedin.com/in/stephenpharmd/)
 
 ## License
 
