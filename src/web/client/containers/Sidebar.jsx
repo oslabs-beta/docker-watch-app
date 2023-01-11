@@ -55,7 +55,7 @@ export default function Sidebar({ containerData, setContainerData }) {
       containerData={containerData}
       key={`containerButton-${container.id}`}
       id={container.id}
-      text={`container-${container.name}`}
+      text={container.name}
       intervalRef={intervalRef}
       idRef={idRef}
       containerRef={containerRef}
