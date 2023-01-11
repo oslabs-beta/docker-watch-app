@@ -48,7 +48,7 @@ curl https://raw.githubusercontent.com/oslabs-beta/docker-watch-app/main/install
 
 ## How It Works
 
-The DockerWatch container holds four smaller containers: a web container, an api container, an InfluxDB database container, and a sensor container. The sensor collects data the Docker daemon and stores it in the database. The API container queries for data from the database upon request from the web container. The CPU, Memory, Network, and Disk metrics for all containers in Docker Desktop, including DockerWatch, are monitored for as long as the DockerWatch container is running.
+The DockerWatch container holds four smaller containers: a web container, an api container, an InfluxDB database container, and a sensor container. The sensor collects data from the Docker daemon and stores it in the database. The API container queries for data from the database upon request from the web container. The CPU, Memory, Network, and Disk metrics for all containers in Docker Desktop, including DockerWatch, are monitored for as long as the DockerWatch container is running.
 
 ## Authors
 
