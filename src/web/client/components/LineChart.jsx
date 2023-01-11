@@ -36,8 +36,17 @@ function LineChart({ graphData, title }) {
         },
       },
     },
+    elements: {
+      point: {
+        radius: 0,
+      },
+    },
   };
-  return <Line className='w-full h-full px-2.5' data={graphData} options={options} />;
+  return (
+    <div className='shadow-2xl rounded-lg mx-1'>
+      <Line className='w-full h-full px-2.5' data={graphData} options={options} />
+    </div>
+  );
 }
 
 export default LineChart;

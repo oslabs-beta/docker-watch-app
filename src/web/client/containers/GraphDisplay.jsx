@@ -57,8 +57,9 @@ const formatGraphData = (data) => {
     labels: times,
     datasets: [
       {
-        label: 'cpu_percentage',
+        label: 'CPU, %',
         data: cpu_percentage,
+        borderColor: '#3b76b7',
       }
     ],
   };
@@ -67,8 +68,9 @@ const formatGraphData = (data) => {
     labels: times,
     datasets: [
       {
-        label: 'Memory_usage',
+        label: 'Memory usage, bytes',
         data: Memory_memory_usage,
+        borderColor: '#3b76b7',
       }
     ],
   };
@@ -77,8 +79,9 @@ const formatGraphData = (data) => {
     labels: times,
     datasets: [
       {
-        label: 'Network_input',
+        label: 'Network input, bytes',
         data: Network_rx_bytes,
+        borderColor: '#3b76b7',
       },
       // {
       //   label: "Network_rx_dropped",
@@ -93,8 +96,9 @@ const formatGraphData = (data) => {
       //   data: Network_rx_packets,
       // },
       {
-        label: 'Network_output',
+        label: 'Network output, bytes',
         data: Network_tx_bytes,
+        borderColor: '#95B9E5',
       }
       // {
       //   label: "Network_tx_dropped",
@@ -115,12 +119,14 @@ const formatGraphData = (data) => {
     labels: times,
     datasets: [
       {
-        label: 'Disk_read_value',
+        label: 'Disk read, bytes',
         data: Disk_read_value,
+        borderColor: '#3b76b7',
       },
       {
-        label: 'Disk_write_value',
+        label: 'Disk write, bytes',
         data: Disk_write_value,
+        borderColor: '#95B9E5',
       }
     ],
   };
@@ -144,7 +150,7 @@ function GraphContainer({ containerData, timeFrame }) {
       <LineChart graphData={graph} title={titles[i]} />
     </div>
   ));
-  return <div className='Main inline-grid grid-cols-2'>{charts}</div>;
+  return <div className='Main inline-grid grid-cols-2 gap-2'>{charts}</div>;
 }
 
 export default GraphContainer;
