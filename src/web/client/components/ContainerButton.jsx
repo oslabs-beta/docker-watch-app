@@ -4,6 +4,7 @@ export default function Container({
   id, text, setContainerData, intervalRef, idRef, containerRef, timeFrame,
 }) {
   const prevData = useRef({});
+
   // fetch full container data from server
   const getInitialData = (containerId) => {
     const apiURL = process.env.API_URL || 'http://127.0.0.1:8081';
@@ -52,7 +53,7 @@ export default function Container({
   };
 
   useEffect(() => {
-    containerOnClick(idRef.current, true);
+    if (idRef.current !== 0) containerOnClick(idRef.current, true);
   }, [timeFrame]);
 
   return (
