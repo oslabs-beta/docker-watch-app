@@ -30,6 +30,7 @@ services:
     build: ./src/api
     ports:
       - '8854:8854' # TODO might not expose port in non-dev builds
+      - '9993:9993'
     environment:
       - DB_INFLUXDB_INIT_ORG=${DB_INFLUXDB_INIT_ORG}
       - DB_INFLUXDB_INIT_BUCKET=${DB_INFLUXDB_INIT_BUCKET}
