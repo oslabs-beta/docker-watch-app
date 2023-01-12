@@ -41,10 +41,10 @@ curl https://raw.githubusercontent.com/oslabs-beta/docker-watch-app/main/install
 1. After installing, open your web brower and visit [http://localhost:8855](http://http://localhost:8855)
 
 2. To view a container, click one on the left-hand side to view monitored metrics, including CPU, Memory, Network, and Disk.
-<img src ="https://i.imgur.com/CJSiiIF.png">
+<img src ="https://i.imgur.com/F5M5OlW.png">
 
 3. View smaller or larger timeframes of data by clicking the Change Timeframe button and selecting a range of time to view. One hour will view all data from the last hour, one day will view all data from the last day, etc.
-<img src ="https://i.imgur.com/ULbHZMM.png">
+<img src ="https://i.imgur.com/MqOunCj.png">
 
 ## How It Works
 
