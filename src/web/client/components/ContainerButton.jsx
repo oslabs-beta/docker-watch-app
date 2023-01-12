@@ -4,9 +4,10 @@ export default function Container({
   id, text, setContainerData, intervalRef, idRef, containerRef, timeFrame,
 }) {
   const prevData = useRef({});
+
   // fetch full container data from server
   const getInitialData = (containerId) => {
-    const apiURL = process.env.API_URL || 'http://127.0.0.1:8081';
+    const apiURL = process.env.API_URL || 'http://127.0.0.1:8854';
 
     fetch(`${apiURL}/api/v1/containers/${containerId}/stats/${timeFrame}`)
       .then((response) => response.json())
@@ -18,7 +19,7 @@ export default function Container({
   };
   // fetch partial container data from server
   const getUpdatedData = (containerId) => {
-    const apiURL = process.env.API_URL || 'http://127.0.0.1:8081';
+    const apiURL = process.env.API_URL || 'http://127.0.0.1:8854';
 
     fetch(`${apiURL}/api/v1/containers/${containerId}/stats/8s`)
       .then((response) => response.json())
@@ -52,7 +53,7 @@ export default function Container({
   };
 
   useEffect(() => {
-    containerOnClick(idRef.current, true);
+    if (idRef.current !== 0) containerOnClick(idRef.current, true);
   }, [timeFrame]);
 
   return (
@@ -60,7 +61,7 @@ export default function Container({
       type='button'
       onClick={() => containerOnClick(id)}
         // if button is selected then the text color is white
-      className={containerRef.current === id ? 'btn btn-active btn-accent border-white text-white min-w-full' : 'btn btn-outline btn-accent min-w-full'}
+      className={containerRef.current === id ? 'btn btn-active bg-m-blue hover:bg-m-blue border-white mb-1 text-white min-w-full' : 'btn btn-outline border-l-blue text-l-blue mb-1 min-w-full'}
     >
       {text}
     </button>

@@ -18,6 +18,8 @@
   grid-area: Header;
   display: flex;
   align-items: center;
+  /* background-color: #2d5ca7; */
+  background-color: #2b7bd4;
   /* justify-content: center; */
 }
 
@@ -31,6 +33,10 @@
   grid-area: Sidebar;
   display: flex;
   justify-content: center;
+}
+
+.sideScroll {
+  height: 89vh;
 }
 
 .container {
