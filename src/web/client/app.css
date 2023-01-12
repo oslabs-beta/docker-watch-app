@@ -5,7 +5,7 @@
 .App {
   display: grid;
   grid-template-columns: 0.3fr 1.7fr;
-  grid-template-rows: 0.2fr 1.8fr;
+  grid-template-rows: 0.1fr 1.9fr;
   gap: 0px 0px;
   grid-template-areas:
     "Header Header"
@@ -18,6 +18,8 @@
   grid-area: Header;
   display: flex;
   align-items: center;
+  /* background-color: #2d5ca7; */
+  background-color: #2b7bd4;
   /* justify-content: center; */
 }
 
@@ -31,6 +33,10 @@
   grid-area: Sidebar;
   display: flex;
   justify-content: center;
+}
+
+.sideScroll {
+  height: 89vh;
 }
 
 .container {

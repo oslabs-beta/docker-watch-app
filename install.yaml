@@ -1,0 +1,48 @@
+version: '3.9'
+
+services:
+  sensor1:
+    image: dockerwatch/sensor1:latest
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    environment:
+      - DB_INFLUXDB_INIT_ADMIN_TOKEN=dockerwatch
+      - DB_INFLUXDB_INIT_ORG=dockerwatch
+      - DB_INFLUXDB_INIT_BUCKET=dockerwatch
+      - DB_URL=http://db:8086
+      - SENSORS_SENSOR1_LOOKUP_FREQUENCY=5000
+    depends_on:
+      - db
+    command: ["npm", "run", "start"]
+  db:
+    image: influxdb:2.4
+    environment:
+      - DOCKER_INFLUXDB_INIT_MODE=setup
+      - DOCKER_INFLUXDB_INIT_USERNAME=dockerwatch
+      - DOCKER_INFLUXDB_INIT_PASSWORD=dockerwatch
+      - DOCKER_INFLUXDB_INIT_ORG=dockerwatch
+      - DOCKER_INFLUXDB_INIT_BUCKET=dockerwatch
+      - DOCKER_INFLUXDB_INIT_RETENTION=1w
+      - DOCKER_INFLUXDB_INIT_ADMIN_TOKEN=dockerwatch
+  api:
+    image: dockerwatch/api:latest
+    ports:
+      - '8854:8081'
+    environment:
+      - DB_INFLUXDB_INIT_ORG=dockerwatch
+      - DB_INFLUXDB_INIT_BUCKET=dockerwatch
+      - DB_INFLUXDB_INIT_ADMIN_TOKEN=dockerwatch
+      - DB_URL=http://db:8086
+    depends_on:
+      - db
+      - sensor1
+    command: ["npm", "run", "start"]
+  web:
+    image: dockerwatch/frontend-web:latest
+    ports:
+      - '8855:8080'
+    environment:
+      - API_URL=http://127.0.0.1:8854
+    depends_on:
+      - api
+    command: ["npm", "run", "dev:docker"]
