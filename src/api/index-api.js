@@ -6,7 +6,7 @@ const controller = require('./controller');
 
 // console.log(controller.getStatsFromDB);
 
-const PORT = 8081;
+const PORT = 8854;
 const HOST = '0.0.0.0';
 
 const app = express();
