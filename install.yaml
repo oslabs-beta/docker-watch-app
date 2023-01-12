@@ -27,7 +27,7 @@ services:
   api:
     image: dockerwatch/api:latest
     ports:
-      - '8854:8081'
+      - '8854:8854'
     environment:
       - DB_INFLUXDB_INIT_ORG=dockerwatch
       - DB_INFLUXDB_INIT_BUCKET=dockerwatch
@@ -40,7 +40,7 @@ services:
   web:
     image: dockerwatch/frontend-web:latest
     ports:
-      - '8855:8080'
+      - '8855:8855'
     environment:
       - API_URL=http://127.0.0.1:8854
     depends_on:

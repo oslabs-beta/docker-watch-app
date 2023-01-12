@@ -7,7 +7,7 @@ export default function Container({
 
   // fetch full container data from server
   const getInitialData = (containerId) => {
-    const apiURL = process.env.API_URL || 'http://127.0.0.1:8081';
+    const apiURL = process.env.API_URL || 'http://127.0.0.1:8854';
 
     fetch(`${apiURL}/api/v1/containers/${containerId}/stats/${timeFrame}`)
       .then((response) => response.json())
@@ -19,7 +19,7 @@ export default function Container({
   };
   // fetch partial container data from server
   const getUpdatedData = (containerId) => {
-    const apiURL = process.env.API_URL || 'http://127.0.0.1:8081';
+    const apiURL = process.env.API_URL || 'http://127.0.0.1:8854';
 
     fetch(`${apiURL}/api/v1/containers/${containerId}/stats/8s`)
       .then((response) => response.json())
