@@ -10,7 +10,7 @@ describe('Web Page', () => {
 
   it('displays graphs', () => {
     cy.visit('/')
-    cy.contains('container').click()
+    cy.contains('web').click()
     cy.get('canvas').should('have.length', 4)
   })
 })
