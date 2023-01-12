@@ -61,3 +61,7 @@ The DockerWatch container holds four smaller containers: a web container, an api
 ## License
 
 This project is licensed under the [MIT License](LICENSE) 
+
+## Contributing 
+
+DockerWatch launched on January 12, 2023 and is currently in active beta development through the OSlabs Beta community initiative. The application is licensed under the terms of the MIT license, making it a fully open source product. Developers are welcome to contribute to the codebase and expand on its features.
