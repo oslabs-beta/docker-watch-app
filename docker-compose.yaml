@@ -29,7 +29,7 @@ services:
   api:
     build: ./src/api
     ports:
-      - '8081:8081' # TODO might not expose port in non-dev builds
+      - '8854:8854' # TODO might not expose port in non-dev builds
     environment:
       - DB_INFLUXDB_INIT_ORG=${DB_INFLUXDB_INIT_ORG}
       - DB_INFLUXDB_INIT_BUCKET=${DB_INFLUXDB_INIT_BUCKET}
@@ -42,10 +42,10 @@ services:
   web:
     build: ./src/web
     ports:
-      - '8080:8080'
+      - '8855:8855'
     environment:
-      # - API_URL=http://api:8081 # TODO explore mapping through Docker network
-      - API_URL=http://127.0.0.1:8081
+      # - API_URL=http://api:8854 # TODO explore mapping through Docker network
+      - API_URL=http://127.0.0.1:8854
     depends_on:
       - api
     command: ["npm", "run", "dev:docker"]

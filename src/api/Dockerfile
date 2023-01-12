@@ -9,4 +9,4 @@ RUN npm install
 
 COPY . .
 
-EXPOSE 8081
+EXPOSE 8854
