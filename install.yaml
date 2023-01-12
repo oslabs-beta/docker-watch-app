@@ -25,7 +25,7 @@ services:
       - DOCKER_INFLUXDB_INIT_RETENTION=1w
       - DOCKER_INFLUXDB_INIT_ADMIN_TOKEN=dockerwatch
   api:
-    image: dockerwatch/api:latest
+    build: ./src/api
     ports:
       - '8854:8854'
     environment:

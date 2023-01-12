@@ -2,6 +2,14 @@
 const express = require('express');
 const cors = require('cors');
 
+const {
+  gatherMetrics,
+  registerEndpoint,
+  exportEndpoints,
+  exportAllEndpoints,
+  startMetricsServer,
+} = require('express-endpoints-monitor');
+
 const controller = require('./controller');
 
 // console.log(controller.getStatsFromDB);
@@ -11,6 +19,7 @@ const HOST = '0.0.0.0';
 
 const app = express();
 app.use(cors());
+app.use(gatherMetrics);
 
 // send an object with all stats of a specific container id for the default time range
 app.get('/api/v1/containers/:id/stats/', controller.getContainerStats, (req, res) => {
@@ -58,4 +67,6 @@ app.use((err, req, res) => {
 
 app.listen(PORT, HOST, () => {
   console.log(`Running on http://${HOST}:${PORT}`);
+  exportAllEndpoints(app);
+  startMetricsServer(9993);
 });
