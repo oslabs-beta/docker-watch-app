@@ -26,11 +26,11 @@ DockerWatch is a containerized application that collects and visualizes Docker c
 
 ### Prerequisites
 
-- Download [Docker Desktop](https://www.docker.com/products/docker-desktop/)
+- Download [Docker Desktop](https://www.docker.com/products/docker-desktop/).
 
 ### Setup
 
-Run the following code in your terminal from the top level directory:
+Run the following code in your terminal:
 
 ```
 curl https://raw.githubusercontent.com/oslabs-beta/docker-watch-app/main/install.yaml | docker-compose -p dockerwatch -f - up -d
