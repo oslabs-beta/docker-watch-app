@@ -6,7 +6,7 @@
   "scripts": {
     "build:tailwindcss": "npx tailwindcss -i ./client/app.css -o ./dist/output.css",
     "dev": "concurrently \"npm run watch-css\" \"NODE_ENV=development webpack-dev-server --open\"",
-    "dev:docker": "concurrently \"npm run build:tailwindcss\" \"NODE_ENV=development webpack-dev-server --port 8855 \"",
+    "dev:docker": "concurrently \"npm run build:tailwindcss\" \"NODE_ENV=development webpack-dev-server --allowed-hosts all --port 8855 \"",
     "start": "NODE_ENV=production webpack-dev-server",
     "watch-css": "npx tailwindcss -i ./client/app.css -o ./dist/output.css --watch"
   },

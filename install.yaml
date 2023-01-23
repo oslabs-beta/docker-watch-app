@@ -38,7 +38,7 @@ services:
       - sensor1
     command: ["npm", "run", "start"]
   web:
-    image: dockerwatch/frontend-web:latest
+    build: ./src/web
     ports:
       - '8855:8855'
     environment:
